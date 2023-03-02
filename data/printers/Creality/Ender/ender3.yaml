@@ -1,0 +1,57 @@
+---
+printer:
+  name: Ender 3
+  noise: 58
+  size: 440x410x465
+  power: 270
+  voltage:
+    - 230
+    - 115
+  weight: 6.62
+  type: cartesian
+  release_year: 2018
+  price: 180
+  
+print:
+  volume: 220x220x250
+  speed: 180
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: flexible magnetic
+    max_temperature: 100
+  closed: false
+  layer_resolution: 0.1
+
+screen:
+  size: 80x50
+  resolution: 128*64
+  type: matrix-dot
+  color: false
+
+nozzle:
+  number: 1
+  max_temperature: 255
+  diameter: 0.4
+  extrudeur_type: bowden
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - ABS
+    - TPU
+
+other:
+  motherboard: 8
+  firmware: marlin
+  bed_leveling: manual
+  runout_sensor: false
+  supported_file_format:
+    - obj
+    - gcode
+  resume_printing: false
+  print_method:
+    - MicroSD
+    - USB

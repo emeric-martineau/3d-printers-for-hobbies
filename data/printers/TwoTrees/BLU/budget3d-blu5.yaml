@@ -1,0 +1,59 @@
+---
+printer:
+  name: BLU-5
+  noise: 
+  size: 405x505x646
+  power: 360
+  voltage:
+    - 230
+    - 115
+  weight: 12.5
+  type: cartesian
+  release_year: 2021
+  price: 140
+  
+print:
+  volume: 300x300x400
+  speed: 300
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: flexible magnetic
+    max_temperature: 100
+  closed: false
+  layer_resolution: 0.1
+
+screen:
+  size: 
+  resolution: 
+  type: LCD touch screen
+  color: true
+
+nozzle:
+  number: 1
+  max_temperature: 260
+  diameter: 0.4
+  extrudeur_type: bowden
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - ABS
+    - TPU
+    - Wood
+    - PETG
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: manual
+  runout_sensor: true
+  supported_file_format:
+    - obj
+    - gcode
+  resume_printing: true
+  print_method:
+    - MicroSD
+    - USB

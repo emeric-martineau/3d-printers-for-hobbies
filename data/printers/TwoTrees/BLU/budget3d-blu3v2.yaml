@@ -1,0 +1,57 @@
+---
+printer:
+  name: BLU-3v2
+  noise: 
+  size: 410x400x520
+  power: 240
+  voltage:
+    - 230
+    - 115
+  weight: 8
+  type: cartesian
+  release_year: 2020
+  price: 230
+  
+print:
+  volume: 235x235x280
+  speed: 200
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: flexible magnetic
+    max_temperature: 100
+  closed: false
+  layer_resolution: 0.1
+
+screen:
+  size: 
+  resolution: 
+  type: LCD touch screen
+  color: true
+
+nozzle:
+  number: 1
+  max_temperature: 260
+  diameter: 0.4
+  extrudeur_type: bowden
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - ABS
+    - TPU
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: manual
+  runout_sensor: true
+  supported_file_format:
+    - obj
+    - gcode
+  resume_printing: true
+  print_method:
+    - MicroSD
+    - USB

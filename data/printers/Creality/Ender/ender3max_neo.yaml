@@ -1,0 +1,57 @@
+---
+printer:
+  name: Ender 3 Max Neo
+  noise: 58
+  size: 513x568x590
+  power: 350
+  voltage:
+    - 230
+    - 115
+  weight: 10.3
+  type: cartesian
+  release_year: 2022
+  price: 360
+  
+print:
+  volume: 300x300x340
+  speed: 120
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: flexible magnetic
+    max_temperature: 100
+  closed: false
+  layer_resolution: 0.1
+
+screen:
+  size: 93x87
+  resolution: 320x480
+  type: LCD 4.3-inch knob
+  color: true
+
+nozzle:
+  number: 1
+  max_temperature: 255
+  diameter: 0.4
+  extrudeur_type: bowden
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - ABS
+    - TPU
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: CR Touch
+  runout_sensor: true
+  supported_file_format:
+    - obj
+    - gcode
+  resume_printing: false
+  print_method:
+    - MicroSD
+    - USB
