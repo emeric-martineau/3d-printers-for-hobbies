@@ -151,7 +151,11 @@ function main(input, output) {
 
   // Save printer list file
   saveJsonToFile(printersList, `${output}/printers.json`)
-  saveJsonToFile(indexes.generateIndexes(printersList[0]), `${output}/index.json`)
+  let idx = indexes.generateIndexesKeys(printersList[0])
+
+  //saveJsonToFile(indexes.generateIndexesKeys(printersList[0]), `${output}/index.json`)
+
+  console.log(indexes.generateIndexes(idx, printersList))
 
   // TODO write file
   //console.log(printersList[0])
