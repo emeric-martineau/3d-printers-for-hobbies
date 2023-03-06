@@ -27,7 +27,7 @@ print:
 screen:
   size: 
   resolution: 
-  type: 3.5" Color Touch Screen
+  type: 3.5-inch Color Touch Screen
   color: true
 
 nozzle:
