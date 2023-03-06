@@ -33,11 +33,12 @@ function listAllKeysValues(keysToCheck) {
   for (let i = 0; i < keysToCheck.length; i++) {
     let [key, value] = keysToCheck[i] 
 
-    keysList.push(key)
-
     if (isObject(value)) {
       keysToCheck = keysToCheck.concat(
         keysValues(value, key))
+    } else {
+      // Add only if key contains direct value
+      keysList.push(key)
     }
   }
 

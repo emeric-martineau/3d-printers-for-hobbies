@@ -154,9 +154,13 @@ function main(input, output) {
   let idx = indexes.generateIndexesKeys(printersList[0])
 
   //saveJsonToFile(indexes.generateIndexesKeys(printersList[0]), `${output}/index.json`)
-
-  console.log(indexes.generateIndexes(idx, printersList))
-
+console.log(idx)
+console.log('------------------------------------')
+console.log(indexes.generateIndexes(idx, printersList))
+//print.bed.surface
+//print.bed.max_temperature
+//print.precision.x
+//print.precision.y
   // TODO write file
   //console.log(printersList[0])
   //console.log(typeof printersList[0])
