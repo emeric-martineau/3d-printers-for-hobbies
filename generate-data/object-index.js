@@ -93,7 +93,38 @@ module.exports = {
   },
   // Generate indexes of each index.
   // return a map with key associate to array of distinct value
-  generateIndexes: (indexes, objectList) => {
-    return createIndexes(indexes, objectList)
+  generateIndexesValues: createIndexes,
+  // Generate link between index value and array position of data
+  // in objectList
+  generateIndexesLink: (indexesValues, objectList) => {
+    let newIndex = {}
+
+    // Init newIndex
+    Object.entries(indexesValues).forEach(([key, values], _) => 
+      values.forEach(v => newIndex[`${key}-${v}`] = [])
+    )
+
+    // For each keys
+    Object.entries(indexesValues).forEach(([key, values], _) => {
+      // We get array with values
+
+      // For each values, we search who have this value in this keys
+      values.forEach(currentValue => {
+        // Now for each object in list
+        objectList.forEach((currentObject, currentObjectIndex) => {
+          let valueOfProperty = pseudoJsonPath(currentObject, key)
+
+          // If value is array
+          if (
+            (isArray(valueOfProperty) && valueOfProperty.includes(currentValue)) ||
+            (valueOfProperty === currentValue)) {
+            newIndex[`${key}-${currentValue}`].push(currentObjectIndex)
+            //console.log(`For ${key} with value '${valueOfProperty}' found in printer ${currentObjectIndex}`)
+          }
+        })
+      })
+    })
+
+    return newIndex
   }
 }

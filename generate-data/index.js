@@ -153,10 +153,12 @@ function main(input, output) {
   saveJsonToFile(printersList, `${output}/printers.json`)
   let idx = indexes.generateIndexesKeys(printersList[0])
 
-  //saveJsonToFile(indexes.generateIndexesKeys(printersList[0]), `${output}/index.json`)
-console.log(idx)
-console.log('------------------------------------')
-console.log(indexes.generateIndexes(idx, printersList))
+  let indexesValues = indexes.generateIndexesValues(idx, printersList)
+  saveJsonToFile(indexesValues, `${output}/indexes-values.json`)
+
+  let indexWithArrayIndex = indexes.generateIndexesLink(indexesValues, printersList)
+  saveJsonToFile(indexWithArrayIndex, `${output}/indexes.json`)
+
 //print.bed.surface
 //print.bed.max_temperature
 //print.precision.x
