@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-reset-padding">
+    <div class="container-fluid navbar-reset-padding-left">
+      <span class="navbar-brand navbar-reset-padding">
+        <img src="assets/logo_48x48.jpg" />
+      </span>
+
+      <button class="navbar-toggler" type="button" aria-controls="navbarContent" [attr.aria-expanded]="!collapsed" aria-label="Toggle navigation" (click)="collapsed = !collapsed">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="navbar-collapse container-fluid" [class.collapse]="collapsed" id="navbarContent">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#manufacturers">Manufacturers</a>
+          </li>
+
+
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+

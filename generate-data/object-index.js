@@ -119,7 +119,6 @@ module.exports = {
             (isArray(valueOfProperty) && valueOfProperty.includes(currentValue)) ||
             (valueOfProperty === currentValue)) {
             newIndex[`${key}-${currentValue}`].push(currentObjectIndex)
-            //console.log(`For ${key} with value '${valueOfProperty}' found in printer ${currentObjectIndex}`)
           }
         })
       })
