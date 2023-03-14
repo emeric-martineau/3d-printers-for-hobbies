@@ -1,0 +1,12 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col" *ngFor="let head of tableHeader">{{ head.text }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr scope="row" *ngFor="let printer of printersList">
+      <td scope="col" *ngFor="let head of tableHeader">{{ getProperty(printer, head.key) }}</td>
+    </tr>
+  </tbody>
+</table>
