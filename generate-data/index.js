@@ -132,10 +132,10 @@ function generatePrintersList(input) {
   return [false, printersList]
 }
 
-function saveJsonToFile(json, filename) {
+function saveJsonToFile(json, filename, prefix = '') {
     // Save printer list file
     try {
-      fs.writeFileSync(filename, JSON.stringify(json))
+      fs.writeFileSync(filename, prefix + JSON.stringify(json))
       // file written successfully
     } catch (err) {
       log.error(err)
@@ -150,22 +150,14 @@ function main(input, output) {
   }
 
   // Save printer list file
-  saveJsonToFile(printersList, `${output}/printers.json`)
+  saveJsonToFile(printersList, `${output}/printers.ts`, 'export const PrintersList = ')
   let idx = indexes.generateIndexesKeys(printersList[0])
 
-  let indexesValues = indexes.generateIndexesValues(idx, printersList)
-  saveJsonToFile(indexesValues, `${output}/indexes-values.json`)
+  // let indexesValues = indexes.generateIndexesValues(idx, printersList)
+  // saveJsonToFile(indexesValues, `${output}/indexes-values.json`)
 
-  let indexWithArrayIndex = indexes.generateIndexesLink(indexesValues, printersList)
-  saveJsonToFile(indexWithArrayIndex, `${output}/indexes.json`)
-
-//print.bed.surface
-//print.bed.max_temperature
-//print.precision.x
-//print.precision.y
-  // TODO write file
-  //console.log(printersList[0])
-  //console.log(typeof printersList[0])
+  // let indexWithArrayIndex = indexes.generateIndexesLink(indexesValues, printersList)
+  // saveJsonToFile(indexWithArrayIndex, `${output}/indexes.json`)
 
   return 0
 }
