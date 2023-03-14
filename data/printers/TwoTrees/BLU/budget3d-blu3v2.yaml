@@ -11,6 +11,7 @@ printer:
   type: cartesian
   release_year: 2020
   price: 230
+  closed: false
   
 print:
   volume: 235x235x280
@@ -21,7 +22,6 @@ print:
   bed:
     surface: flexible magnetic
     max_temperature: 100
-  closed: false
   layer_resolution: 0.1
 
 screen:

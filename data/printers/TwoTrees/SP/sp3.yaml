@@ -10,7 +10,8 @@ printer:
   weight: 12.5
   type: core_xy
   release_year: 2021
-  price:
+  price: 310
+  closed: false
   
 print:
   volume: 220x220x220
@@ -21,7 +22,6 @@ print:
   bed:
     surface: flexible magnetic
     max_temperature: 100
-  closed: false
   layer_resolution: 0.1
 
 screen:

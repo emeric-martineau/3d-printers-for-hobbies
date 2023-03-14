@@ -11,6 +11,7 @@ printer:
   type: core_xy
   release_year: 2021
   price: 380
+  closed: false
   
 print:
   volume: 485x460x590
@@ -21,7 +22,6 @@ print:
   bed:
     surface: flexible magnetic
     max_temperature: 100
-  closed: false
   layer_resolution: 0.1
 
 screen:

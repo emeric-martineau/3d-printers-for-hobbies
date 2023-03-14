@@ -11,6 +11,7 @@ printer:
   type: cartesian
   release_year: 2022
   price: 470
+  closed: false
   
 print:
   volume: 220x220x270
@@ -21,7 +22,6 @@ print:
   bed:
     surface: flexible magnetic
     max_temperature: 110
-  closed: false
   layer_resolution: 0.1
 
 screen:
