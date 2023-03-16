@@ -1,0 +1,33 @@
+---
+printer:
+  name: Name
+  noise: Noize
+  size: Printer size
+  type: Type
+  release_year: Release year
+  price: Price
+  closed: Is closed
+  
+print:
+  volume: Volume
+  speed: Speed
+  bed:
+    surface: Bed surface
+    max_temperature: Bed temperature
+
+nozzle:
+  number: Nozzle number
+  max_temperature: Nozzle temperature
+  extruder_type: Extruder
+
+filament:
+  diameter: Filament diameter
+  type: Filament type
+
+other:
+  motherboard: Motherboard type
+  firmware: Firmware
+  bed_leveling: Leveling type
+  runout_sensor: Runout sensor
+  resume_printing: Resume printing
+  print_method: Print Method

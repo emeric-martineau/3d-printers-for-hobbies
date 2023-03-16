@@ -34,7 +34,7 @@ nozzle:
   number: 1
   max_temperature: 300
   diameter: 0.4
-  extrudeur_type: direct drive
+  extruder_type: direct drive
 
 filament:
   diameter: 1.75

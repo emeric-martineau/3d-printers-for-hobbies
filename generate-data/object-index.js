@@ -48,7 +48,9 @@ function listAllKeysValues(keysToCheck) {
 // Read value
 function pseudoJsonPath(obj, path) {
   path.split('.').forEach(key => {
-    obj = obj[key]
+    if (isObject(obj)) {
+      obj = obj[key]
+    }
   })
 
   return obj
@@ -86,6 +88,39 @@ function createIndexes(indexes, objectList) {
   return idx
 }
 
+  // Generate link between index value and array position of data
+  // in objectList
+function createIndexList(indexesValues, objectList) {
+  let newIndex = {}
+
+  // Init newIndex
+  Object.entries(indexesValues).forEach(([key, values], _) => 
+    values.forEach(v => newIndex[`${key}-${v}`] = [])
+  )
+
+  // For each keys
+  Object.entries(indexesValues).forEach(([key, values], _) => {
+    // We get array with values
+
+    // For each values, we search who have this value in this keys
+    values.forEach(currentValue => {
+      // Now for each object in list
+      objectList.forEach((currentObject, currentObjectIndex) => {
+        let valueOfProperty = pseudoJsonPath(currentObject, key)
+
+        // If value is array
+        if (
+          (isArray(valueOfProperty) && valueOfProperty.includes(currentValue)) ||
+          (valueOfProperty === currentValue)) {
+          newIndex[`${key}-${currentValue}`].push(currentObjectIndex)
+        }
+      })
+    })
+  })
+
+  return newIndex
+}
+
 module.exports = {
   // Generate list of keys indexes
   generateIndexesKeys: obj => {
@@ -97,33 +132,21 @@ module.exports = {
   // Generate link between index value and array position of data
   // in objectList
   generateIndexesLink: (indexesValues, objectList) => {
-    let newIndex = {}
+    return createIndexList(indexesValues, objectList)
+  },
+  // Generate index description.
+  generateIndexKeysDescription: (indexDescription, indexesValues) => {
+    let keysDescription = []
 
-    // Init newIndex
-    Object.entries(indexesValues).forEach(([key, values], _) => 
-      values.forEach(v => newIndex[`${key}-${v}`] = [])
-    )
+    Object.keys(indexesValues).forEach(key => {
+      v = pseudoJsonPath(indexDescription, key)
 
-    // For each keys
-    Object.entries(indexesValues).forEach(([key, values], _) => {
-      // We get array with values
-
-      // For each values, we search who have this value in this keys
-      values.forEach(currentValue => {
-        // Now for each object in list
-        objectList.forEach((currentObject, currentObjectIndex) => {
-          let valueOfProperty = pseudoJsonPath(currentObject, key)
-
-          // If value is array
-          if (
-            (isArray(valueOfProperty) && valueOfProperty.includes(currentValue)) ||
-            (valueOfProperty === currentValue)) {
-            newIndex[`${key}-${currentValue}`].push(currentObjectIndex)
-          }
-        })
-      })
+      //if (!(v === undefined || v === null)) {
+      if (v !== undefined && v !== null) {
+        keysDescription.push([key, v])
+      }
     })
 
-    return newIndex
+    return keysDescription
   }
 }

@@ -34,7 +34,7 @@ nozzle:
   number: 1
   max_temperature: 255
   diameter: 0.4
-  extrudeur_type: bowden
+  extruder_type: bowden
 
 filament:
   diameter: 1.75

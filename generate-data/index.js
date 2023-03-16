@@ -132,10 +132,21 @@ function generatePrintersList(input) {
   return [false, printersList]
 }
 
-function saveJsonToFile(json, filename, prefix = '') {
+function generateIndexKeysDescription(filename, indexesValues) {
+    // filters.yaml
+    let [err2, doc] = parseDocument(filename)
+
+    if (err2.length != 0) {
+      return 1
+    }
+  
+    return indexes.generateIndexKeysDescription(doc.toJSON(), indexesValues)
+}
+
+function saveJsonToFile(json, filename, prefix = '', suffix = '') {
     // Save printer list file
     try {
-      fs.writeFileSync(filename, prefix + JSON.stringify(json))
+      fs.writeFileSync(filename, prefix + JSON.stringify(json) + suffix)
       // file written successfully
     } catch (err) {
       log.error(err)
@@ -143,21 +154,26 @@ function saveJsonToFile(json, filename, prefix = '') {
 }
 
 function main(input, output) {
-  let [err, printersList] = generatePrintersList(input)
+  let [err, printersList] = generatePrintersList(`${input}${path.sep}printers`)
 
   if (err) {
     return 1
   }
 
   // Save printer list file
-  saveJsonToFile(printersList, `${output}/printers.ts`, 'export const PrintersList = ')
+  saveJsonToFile(printersList, `${output}${path.sep}printers.ts`, 'export const PrintersList = ')
   let idx = indexes.generateIndexesKeys(printersList[0])
 
-  // let indexesValues = indexes.generateIndexesValues(idx, printersList)
-  // saveJsonToFile(indexesValues, `${output}/indexes-values.json`)
+  let indexesValues = indexes.generateIndexesValues(idx, printersList)
+  saveJsonToFile(indexesValues, `${output}/indexes-values.json`)
+
+  let keysDescription = generateIndexKeysDescription(`${input}${path.sep}filters.yaml`, indexesValues)
+  saveJsonToFile(keysDescription, `${output}/indexes-keys-description.ts`, 'export const IndexKeysDescription = new Map<string, string>(', ')')
 
   // let indexWithArrayIndex = indexes.generateIndexesLink(indexesValues, printersList)
   // saveJsonToFile(indexWithArrayIndex, `${output}/indexes.json`)
+
+  // TODO generate index data type ?
 
   return 0
 }
