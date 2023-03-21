@@ -27,15 +27,25 @@ class TableHeader {
   }
 }
 
+class Filter {
+  constructor(public key: string, public text: string) { }
+}
+
 @Component({
   selector: 'print-table',
   templateUrl: './print-table.component.html',
   styleUrls: ['./print-table.component.css']
 })
 export class PrintTableComponent implements OnInit {
+  // Table header
   tableHeader: TableHeader[] = []
-
+  // Filters name
+  filtersNameList: Filter[] = []
+  // Full printers list
   printersList: any[] = []
+
+  currentFilterName: string = ''
+  currentFilterText: string = ''
 
   constructor(private printers: PrintersService, private indexes: IndexesService) {  }
 
@@ -44,11 +54,13 @@ export class PrintTableComponent implements OnInit {
 
     // Init table header with label
     TABLE_COLUMNS.forEach(key => {
-      console.log(key, this.indexes.getKeyDescription(key))
       this.tableHeader.push(
         new TableHeader(key, this.indexes.getKeyDescription(key))
       )
     })
+
+    // Init filter field
+    this.indexes.getAllKeysDescription().forEach((value, key) =>  this.filtersNameList.push(new Filter(key, value)))
   }
 
   // Read value
@@ -58,5 +70,10 @@ export class PrintTableComponent implements OnInit {
     })
 
     return obj
+  }
+
+  onSelectedFilterName(filterName: string, filterText: string) {
+    this.currentFilterName = filterName
+    this.currentFilterText = filterText
   }
 }

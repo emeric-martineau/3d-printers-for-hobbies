@@ -1,3 +1,20 @@
+<div class="btn-group me-3">
+	<div class="btn-group" ngbDropdown role="group" aria-label="The filter">
+		<button type="button" class="btn btn-primary" ngbDropdownToggle>{{ currentFilterName == '' ? 'Filter field name...' : currentFilterText }}</button>
+		<div class="dropdown-menu" ngbDropdownMenu>
+			<button ngbDropdownItem *ngFor="let filter of filtersNameList" value="{{ filter.key }}" (click)="onSelectedFilterName(filter.key, filter.text)">{{ filter.text }}</button>
+		</div>
+	</div>
+	<div class="btn-group" ngbDropdown role="group" aria-label="The value of filter">
+		<button type="button" class="btn btn-light" ngbDropdownToggle>...filter value</button>
+		<div class="dropdown-menu" ngbDropdownMenu>
+			<button ngbDropdownItem>One</button>
+			<button ngbDropdownItem>Two</button>
+			<button ngbDropdownItem>Four!</button>
+		</div>
+	</div>
+</div>
+
 <table class="table table-striped">
   <thead>
     <tr>
