@@ -8,6 +8,7 @@ import { AppHeaderComponent } from './components/app-header/app-header.component
 import { HomeComponent } from './components/home/home.component'
 import { ManufacturersComponent } from './components/manufacturers/manufacturers.component'
 import { PrintTableComponent } from './components/print-table/print-table.component'
+import { FiltersGutterComponent } from './components/filters-gutter/filters-gutter.component'
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { PrintTableComponent } from './components/print-table/print-table.compon
     AppHeaderComponent,
     HomeComponent,
     ManufacturersComponent,
-    PrintTableComponent
+    PrintTableComponent,
+    FiltersGutterComponent
   ],
   imports: [
     BrowserModule,

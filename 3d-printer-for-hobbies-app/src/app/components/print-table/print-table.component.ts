@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { PrintersService } from '../../services/printers.service'
 import { IndexesService } from '../../services/indexes.service'
+import { Filter, FilterWithValue } from '@shared/filters'
 
 const TABLE_COLUMNS = [
   "printer.name",
@@ -27,14 +28,6 @@ class TableHeader {
   }
 }
 
-class Filter {
-  constructor(public key: string, public text: string) { }
-}
-
-class SelectedFilter {
-  constructor(public key: string = '', public text: string = '', public values: string[] = []) { }
-}
-
 @Component({
   selector: 'print-table',
   templateUrl: './print-table.component.html',
@@ -47,8 +40,10 @@ export class PrintTableComponent implements OnInit {
   filtersNameList: Filter[] = []
   // Full printers list
   printersList: any[] = []
-
-  selectedFilter = new SelectedFilter()
+  // Current filter selected in menu
+  selectedFilter = new FilterWithValue()
+  // All filters selected
+  currentFilterList: FilterWithValue[] = []
 
   constructor(private printers: PrintersService, private indexes: IndexesService) {  }
 
@@ -79,5 +74,19 @@ export class PrintTableComponent implements OnInit {
     this.selectedFilter.key = filterName
     this.selectedFilter.text = filterText
     this.selectedFilter.values = this.indexes.getValuesOfOneIndex(filterName)
+  }
+
+  onSelectedFilterValue(filter: FilterWithValue, value: string) {
+    let item = this.currentFilterList.find(element => element.key === filter.key)
+
+    if (item === undefined) {
+      this.currentFilterList.push(new FilterWithValue(filter.key, filter.text, [value]))
+    } else {
+      item.values.push(value)
+    }
+  }
+
+  onDeleteFilter(filterKey: any) {
+    this.currentFilterList = this.currentFilterList.filter(filter => filter.key !== filterKey)
   }
 }

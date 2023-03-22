@@ -2,20 +2,18 @@
 	<div class="btn-group" ngbDropdown role="group" aria-label="The filter">
 		<button type="button" class="btn btn-primary" ngbDropdownToggle>{{ selectedFilter.text == '' ? 'Filter field name...' : selectedFilter.text }}</button>
 		<div class="dropdown-menu" ngbDropdownMenu>
-			<button ngbDropdownItem *ngFor="let filter of filtersNameList" value="{{ filter.key }}" (click)="onSelectedFilterName(filter.key, filter.text)">{{ filter.text }}</button>
+			<button ngbDropdownItem *ngFor="let filter of filtersNameList" (click)="onSelectedFilterName(filter.key, filter.text)">{{ filter.text }}</button>
 		</div>
 	</div>
 	<div class="btn-group" ngbDropdown role="group" aria-label="The value of filter" *ngIf="selectedFilter.values.length > 0">
 		<button type="button" class="btn btn-light" ngbDropdownToggle>...filter value</button>
 		<div class="dropdown-menu" ngbDropdownMenu>
-			<button ngbDropdownItem *ngFor="let value of selectedFilter.values">{{ value }}</button>
+			<button ngbDropdownItem *ngFor="let value of selectedFilter.values" (click)="onSelectedFilterValue(selectedFilter, value)">{{ value }}</button>
 		</div>
 	</div>
 </div>
 
-<div>
-  <span class="badge rounded-pill text-bg-secondary">Light <i class="bi bi-x-circle-fill"></i> dddd</span>
-</div>
+<filters-gutter [filters]="currentFilterList" (onDeleteEvent)="onDeleteFilter($event)"></filters-gutter>
 
 <table class="table table-striped">
   <thead>
