@@ -136,14 +136,14 @@ module.exports = {
   },
   // Generate index description.
   generateIndexKeysDescription: (indexDescription, indexesValues) => {
-    let keysDescription = []
+    let keysDescription = {}
 
     Object.keys(indexesValues).forEach(key => {
       v = pseudoJsonPath(indexDescription, key)
 
       //if (!(v === undefined || v === null)) {
       if (v !== undefined && v !== null) {
-        keysDescription.push([key, v])
+        keysDescription[key] = v
       }
     })
 

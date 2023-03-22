@@ -24,4 +24,13 @@ export class IndexesService {
   getIndexValues() {
     return IndexesValues
   }
+
+  getValuesOfOneIndex(key: string): string[] {
+    let values = IndexesValues.get(key)
+
+    if (values === undefined) {
+      values = []
+    }
+    return values.flatMap((value: string|number|boolean) => String(value))
+  }
 }

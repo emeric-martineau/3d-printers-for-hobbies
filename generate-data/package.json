@@ -4,7 +4,7 @@
   "description": "Generate data files from list of printer and manufacturer summary",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js ../data/ ../3d-printer-for-hobbies-app/src/app/services/",
+    "generate": "node index.js ../data/ ../3d-printer-for-hobbies-app/src/app/services/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Emeric MARTINEAU",

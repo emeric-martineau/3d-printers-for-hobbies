@@ -164,11 +164,13 @@ function main(input, output) {
   saveJsonToFile(printersList, `${output}${path.sep}printers.ts`, 'export const PrintersList = ')
   let idx = indexes.generateIndexesKeys(printersList[0])
 
+  // Indexes with value
   let indexesValues = indexes.generateIndexesValues(idx, printersList)
-  saveJsonToFile(indexesValues, `${output}/indexes-values.json`)
+  saveJsonToFile(indexesValues, `${output}/indexes-values.ts`, 'const obj = ', '; export const IndexesValues = new Map(Object.entries(obj));')
 
+  // Keys of indexes and description
   let keysDescription = generateIndexKeysDescription(`${input}${path.sep}filters.yaml`, indexesValues)
-  saveJsonToFile(keysDescription, `${output}/indexes-keys-description.ts`, 'export const IndexKeysDescription = new Map<string, string>(', ')')
+  saveJsonToFile(keysDescription, `${output}/indexes-keys-description.ts`, 'const obj = ', '; export const IndexKeysDescription = new Map(Object.entries(obj));')
 
   // let indexWithArrayIndex = indexes.generateIndexesLink(indexesValues, printersList)
   // saveJsonToFile(indexWithArrayIndex, `${output}/indexes.json`)

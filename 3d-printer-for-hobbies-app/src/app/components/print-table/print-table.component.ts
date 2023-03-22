@@ -31,6 +31,10 @@ class Filter {
   constructor(public key: string, public text: string) { }
 }
 
+class SelectedFilter {
+  constructor(public key: string = '', public text: string = '', public values: string[] = []) { }
+}
+
 @Component({
   selector: 'print-table',
   templateUrl: './print-table.component.html',
@@ -44,8 +48,7 @@ export class PrintTableComponent implements OnInit {
   // Full printers list
   printersList: any[] = []
 
-  currentFilterName: string = ''
-  currentFilterText: string = ''
+  selectedFilter = new SelectedFilter()
 
   constructor(private printers: PrintersService, private indexes: IndexesService) {  }
 
@@ -73,7 +76,8 @@ export class PrintTableComponent implements OnInit {
   }
 
   onSelectedFilterName(filterName: string, filterText: string) {
-    this.currentFilterName = filterName
-    this.currentFilterText = filterText
+    this.selectedFilter.key = filterName
+    this.selectedFilter.text = filterText
+    this.selectedFilter.values = this.indexes.getValuesOfOneIndex(filterName)
   }
 }
