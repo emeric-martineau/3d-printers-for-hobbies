@@ -1,15 +1,24 @@
 <div class="btn-group">
 	<div class="btn-group" ngbDropdown role="group" aria-label="The filter">
 		<button type="button" class="btn btn-primary" ngbDropdownToggle>{{ selectedFilter.text == '' ? 'Filter field name...' : selectedFilter.text }}</button>
-		<div class="dropdown-menu" ngbDropdownMenu>
-			<button ngbDropdownItem *ngFor="let filter of filtersNameList" (click)="onSelectedFilterName(filter.key, filter.text)">{{ filter.text }}</button>
-		</div>
+		<ul class="dropdown-menu" ngbDropdownMenu>
+			<li ngbDropdownItem *ngFor="let filter of filtersNameList" (click)="onSelectedFilterName(filter.key, filter.text)">
+        {{ filter.text }}
+      </li>
+		</ul>
 	</div>
-	<div class="btn-group" ngbDropdown role="group" aria-label="The value of filter" *ngIf="selectedFilter.values.length > 0">
+	<div class="btn-group" ngbDropdown [autoClose]="'outside'" role="group" aria-label="The value of filter" *ngIf="selectedFilter.values.length > 0">
 		<button type="button" class="btn btn-light" ngbDropdownToggle>...filter value</button>
-		<div class="dropdown-menu" ngbDropdownMenu>
-			<button ngbDropdownItem *ngFor="let value of selectedFilter.values" (click)="onSelectedFilterValue(selectedFilter, value)">{{ value }}</button>
-		</div>
+		<ul ngbDropdownMenu>
+			<li *ngFor="let value of selectedFilter.values">
+        <a ngbDropdownItem href="#" (click)="onSelectedFilterValue(selectedFilter, value)">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" [id]="value" [checked]="isFilterValueIsSelected(selectedFilter.key, value) ? 'checked' : ''"/>
+            <label class="form-check-label" [for]="value">{{ value }}</label>
+          </div>
+        </a>
+      </li>
+		</ul>
 	</div>
 </div>
 

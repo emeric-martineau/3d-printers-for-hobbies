@@ -78,15 +78,25 @@ export class PrintTableComponent implements OnInit {
 
   onSelectedFilterValue(filter: FilterWithValue, value: string) {
     let item = this.currentFilterList.find(element => element.key === filter.key)
-
+console.log(item)
     if (item === undefined) {
       this.currentFilterList.push(new FilterWithValue(filter.key, filter.text, [value]))
-    } else {
+    } else if (!item.values.includes(value)) {
       item.values.push(value)
     }
   }
 
   onDeleteFilter(filterKey: any) {
     this.currentFilterList = this.currentFilterList.filter(filter => filter.key !== filterKey)
+  }
+
+  isFilterValueIsSelected(filterKey: string, value: string) {
+    let item = this.currentFilterList.find(element => element.key === filterKey)
+
+    if (item) {
+      return item.values.includes(value)
+    }
+
+    return false
   }
 }
