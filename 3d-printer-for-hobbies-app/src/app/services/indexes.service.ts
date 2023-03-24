@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { IndexKeysDescription } from './indexes-keys-description'
 import { IndexesValues } from './indexes-values'
+import { Indexes } from './indexes'
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class IndexesService {
     return IndexKeysDescription
   }
 
-  getKeyDescription(key: string): string|undefined {
-    return IndexKeysDescription.get(key)
+  getKeyDescription(key: string): string {
+    return IndexKeysDescription.get(key) || ''
   }
 
   getIndexValues() {
@@ -32,5 +33,9 @@ export class IndexesService {
       values = []
     }
     return values.flatMap((value: string|number|boolean) => String(value))
+  }
+
+  getOneIndexForOneKeyValue(key: string, value: string): number[] {
+    return Indexes.get(`${key}-${value}`) || []
   }
 }

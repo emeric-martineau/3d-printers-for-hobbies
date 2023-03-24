@@ -172,8 +172,8 @@ function main(input, output) {
   let keysDescription = generateIndexKeysDescription(`${input}${path.sep}filters.yaml`, indexesValues)
   saveJsonToFile(keysDescription, `${output}/indexes-keys-description.ts`, 'const obj = ', '; export const IndexKeysDescription = new Map(Object.entries(obj));')
 
-  // let indexWithArrayIndex = indexes.generateIndexesLink(indexesValues, printersList)
-  // saveJsonToFile(indexWithArrayIndex, `${output}/indexes.json`)
+  let indexWithArrayIndex = indexes.generateIndexesLink(indexesValues, printersList)
+  saveJsonToFile(indexWithArrayIndex, `${output}/indexes.ts`, 'const obj = ', '; export const Indexes = new Map(Object.entries(obj));')
 
   // TODO generate index data type ?
 

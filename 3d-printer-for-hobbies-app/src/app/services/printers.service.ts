@@ -11,4 +11,8 @@ export class PrintersService {
   getPrinters() {
     return PrintersList
   }
+
+  getOnePrinterByIndex(index: number) {
+    return PrintersList[index]
+  }
 }

@@ -21,11 +21,7 @@ const TABLE_COLUMNS = [
 ]
 
 class TableHeader {
-  constructor(public key: string, public text: string|undefined) {
-    if (text === undefined) {
-      text = '-'
-    }
-  }
+  constructor(public key: string, public text: string) { }
 }
 
 @Component({
@@ -39,7 +35,7 @@ export class PrintTableComponent implements OnInit {
   // Filters name
   filtersNameList: Filter[] = []
   // Full printers list
-  printersList: any[] = []
+  printersIndexList: number[] = []
   // Current filter selected in menu
   selectedFilter = new FilterWithValue()
   // All filters selected
@@ -47,8 +43,45 @@ export class PrintTableComponent implements OnInit {
 
   constructor(private printers: PrintersService, private indexes: IndexesService) {  }
 
+  private filterPrintersList() {
+    // Now filter the printers list
+    // For each key (e.g. "printer.name"), for each value of this key (e.g. "Ender 3", "BLU-5") get list of index
+    let allIndex = new Map<string, number[]>()
+    this.currentFilterList.forEach(item => {
+      let data: number[] = []
+
+      item.values.forEach(value => {
+        data = data.concat(this.indexes.getOneIndexForOneKeyValue(item.key, value))
+      })
+
+      allIndex.set(item.key, data)
+    })
+
+    // Search first filter was set
+    const firstKey = TABLE_COLUMNS.find(key => allIndex.get(key) !== undefined)
+
+    if (firstKey !== undefined) {
+      let newIndex = allIndex.get(firstKey) || []
+
+      // Search union of all filter
+      allIndex.forEach(value => {
+        newIndex = newIndex.filter(item => value.includes(item))
+      })
+
+      newIndex.sort((a, b) => a - b)
+
+      this.printersIndexList = newIndex
+    } else {
+      console.error('Cannot find first key with filter data')
+    }
+  }
+
   ngOnInit(): void {
-    this.printersList = this.printers.getPrinters()
+    // Init index off display printer
+    let printersList = this.printers.getPrinters()
+    for (let index = 0; index < printersList.length; index++) {
+      this.printersIndexList.push(index)
+    }
 
     // Init table header with label
     TABLE_COLUMNS.forEach(key => {
@@ -70,6 +103,10 @@ export class PrintTableComponent implements OnInit {
     return obj
   }
 
+  getOnePrinterByIndex(index: number) {
+    return this.printers.getOnePrinterByIndex(index)
+  }
+
   onSelectedFilterName(filterName: string, filterText: string) {
     this.selectedFilter.key = filterName
     this.selectedFilter.text = filterText
@@ -77,13 +114,15 @@ export class PrintTableComponent implements OnInit {
   }
 
   onSelectedFilterValue(filter: FilterWithValue, value: string) {
-    let item = this.currentFilterList.find(element => element.key === filter.key)
-console.log(item)
+    let item = this.currentFilterList.find(item => item.key === filter.key)
+
     if (item === undefined) {
       this.currentFilterList.push(new FilterWithValue(filter.key, filter.text, [value]))
     } else if (!item.values.includes(value)) {
       item.values.push(value)
     }
+
+    this.filterPrintersList()
   }
 
   onDeleteFilter(filterKey: any) {

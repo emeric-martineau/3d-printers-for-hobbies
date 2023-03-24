@@ -31,8 +31,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr scope="row" *ngFor="let printer of printersList">
-      <td scope="col" *ngFor="let head of tableHeader">{{ getProperty(printer, head.key) }}</td>
+    <tr scope="row" *ngFor="let printer of printersIndexList">
+      <td scope="col" *ngFor="let head of tableHeader">{{ getProperty(getOnePrinterByIndex(printer), head.key) }}</td>
     </tr>
   </tbody>
 </table>
