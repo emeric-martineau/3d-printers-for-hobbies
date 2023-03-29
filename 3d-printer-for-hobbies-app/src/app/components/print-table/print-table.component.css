@@ -1,0 +1,7 @@
+.dropdown-item .form-check label {
+  cursor: pointer;
+}
+
+.dropdown-item {
+  cursor: pointer;
+}

@@ -43,6 +43,14 @@ export class PrintTableComponent implements OnInit {
 
   constructor(private printers: PrintersService, private indexes: IndexesService) {  }
 
+  private initPrinterList() {
+    // Init index off display printer
+    let printersList = this.printers.getPrinters()
+    for (let index = 0; index < printersList.length; index++) {
+      this.printersIndexList.push(index)
+    }
+  }
+
   private filterPrintersList() {
     // Now filter the printers list
     // For each key (e.g. "printer.name"), for each value of this key (e.g. "Ender 3", "BLU-5") get list of index
@@ -72,16 +80,12 @@ export class PrintTableComponent implements OnInit {
 
       this.printersIndexList = newIndex
     } else {
-      console.error('Cannot find first key with filter data')
+      this.initPrinterList()
     }
   }
 
   ngOnInit(): void {
-    // Init index off display printer
-    let printersList = this.printers.getPrinters()
-    for (let index = 0; index < printersList.length; index++) {
-      this.printersIndexList.push(index)
-    }
+    this.initPrinterList()
 
     // Init table header with label
     TABLE_COLUMNS.forEach(key => {
@@ -117,8 +121,18 @@ export class PrintTableComponent implements OnInit {
     let item = this.currentFilterList.find(item => item.key === filter.key)
 
     if (item === undefined) {
+      // At first time, filter is not present, so add it
       this.currentFilterList.push(new FilterWithValue(filter.key, filter.text, [value]))
-    } else if (!item.values.includes(value)) {
+    } else if (item.values.includes(value)) {
+      // This value of filter is selected, so remove it
+      const index = item.values.indexOf(value)
+      item.values.splice(index, 1)
+
+      if (item.values.length === 0) {
+        this.currentFilterList = this.currentFilterList.filter(item => item.key !== filter.key)
+      }
+    } else {
+      // Value of filter is not selected, add it
       item.values.push(value)
     }
 
@@ -127,15 +141,20 @@ export class PrintTableComponent implements OnInit {
 
   onDeleteFilter(filterKey: any) {
     this.currentFilterList = this.currentFilterList.filter(filter => filter.key !== filterKey)
+
+    if (this.currentFilterList.length === 0) {
+      this.initPrinterList()
+    }
   }
 
   isFilterValueIsSelected(filterKey: string, value: string) {
     let item = this.currentFilterList.find(element => element.key === filterKey)
+    let selected = false
 
     if (item) {
-      return item.values.includes(value)
+      selected = item.values.includes(value)
     }
 
-    return false
+    return selected
   }
 }
