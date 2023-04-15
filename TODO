@@ -1,8 +1,9 @@
-1 - Add pagination
+
 2 - Add Manufacturer page
 3 - Allow sort table
 4 - When click on filter in gutter, select filter
-5 - Add in /data/ a non-filter.yml file with all other key to display printer
+5 - Add footer with about, copyright... 
+6 - Add in /data/ a non-filter.yml file with all other key to display printer
     Add printer picture
-6 - Add Compare printer page
-7 - On filtter value , remove value if can't be selected (no data found)
+8 - Add Compare printer page
+9 - On filtter value , remove value if can't be selected (no data found)

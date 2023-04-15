@@ -41,6 +41,9 @@ export class PrintTableComponent implements OnInit {
   // All filters selected
   currentFilterList: FilterWithValue[] = []
 
+  page: number = 1
+  printersPerPage: number = 10
+
   constructor(private printers: PrintersService, private indexes: IndexesService) {  }
 
   private initPrinterList() {
@@ -156,5 +159,13 @@ export class PrintTableComponent implements OnInit {
     }
 
     return selected
+  }
+
+  getStartPage() {
+    return (this.page - 1) * this.printersPerPage
+  }
+
+  getEndPage() {
+    return this.getStartPage() + this.printersPerPage
   }
 }
