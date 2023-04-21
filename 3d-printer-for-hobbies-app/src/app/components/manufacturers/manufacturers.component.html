@@ -1,1 +1,14 @@
-<p>manufacturers works!</p>
+<div class="px-4 py-5 my-5 text-center" *ngIf="ManufacturerDescription == ''">
+  <h1 class="display-5 fw-bold text-body-emphasis">Manufacturers</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">List of all 3D FDM printers manufactuers.</p>
+  </div>
+</div>
+
+<div *ngIf="ManufacturerDescription == ''">
+  <div class="text-center" *ngFor="let manufacturer of manufacturers.getManufacturersList()">
+    <img class="manufacturer" (click)="loadManufacturer(manufacturer)" [src]="getSmallLogo(manufacturer)" alt="Logo">
+  </div>
+</div>
+
+<div [innerHtml]="ManufacturerDescription"></div>
