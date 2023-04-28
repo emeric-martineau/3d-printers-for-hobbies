@@ -16,6 +16,6 @@ export class ManufacturersComponent {
   }
 
   loadManufacturer(manufacturer: string) {
-    this.ManufacturerDescription = manufacturer
+    this.ManufacturerDescription = this.manufacturers.getManufacturerDescripton(manufacturer)
   }
 }

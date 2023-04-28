@@ -6,7 +6,7 @@ const log = require('./lib/log')
 const indexes = require('./lib/object-index')
 const { parseDocument, saveJsonToFile } = require('./lib/manage-document')
 const generatePrintersList = require('./lib/printers')
-const { generateManufacturersList, copyManufacturersLogo } = require('./lib/manufacturer')
+const { generateManufacturersList, copyManufacturersLogo, generateManufacturerDescription } = require('./lib/manufacturer')
 
 function generateIndexKeysDescription(filename, indexesValues) {
     // filters.yaml
@@ -20,7 +20,7 @@ function generateIndexKeysDescription(filename, indexesValues) {
 }
 
 function main(input, output, imageOutput) {
-  let [err, printersList] = generatePrintersList(`${input}${path.sep}printers`)
+  const [err, printersList] = generatePrintersList(`${input}${path.sep}printers`)
 
   if (err) {
     return 1
@@ -28,24 +28,25 @@ function main(input, output, imageOutput) {
 
   // Save printer list file
   saveJsonToFile(printersList, `${output}${path.sep}printers.ts`, 'export const PrintersList = ')
-  let idx = indexes.generateIndexesKeys(printersList[0])
+  const idx = indexes.generateIndexesKeys(printersList[0])
 
   // Indexes with value
-  let indexesValues = indexes.generateIndexesValues(idx, printersList)
+  const indexesValues = indexes.generateIndexesValues(idx, printersList)
   saveJsonToFile(indexesValues, `${output}/indexes-values.ts`, 'const obj = ', '; export const IndexesValues = new Map(Object.entries(obj));')
 
   // Keys of indexes and description
-  let keysDescription = generateIndexKeysDescription(`${input}${path.sep}filters.yaml`, indexesValues)
+  const keysDescription = generateIndexKeysDescription(`${input}${path.sep}filters.yaml`, indexesValues)
   saveJsonToFile(keysDescription, `${output}/indexes-keys-description.ts`, 'const obj = ', '; export const IndexKeysDescription = new Map(Object.entries(obj));')
 
-  let indexWithArrayIndex = indexes.generateIndexesLink(indexesValues, printersList)
+  const indexWithArrayIndex = indexes.generateIndexesLink(indexesValues, printersList)
   saveJsonToFile(indexWithArrayIndex, `${output}/indexes.ts`, 'const obj = ', '; export const Indexes = new Map(Object.entries(obj));')
 
-  let manufacturersList = generateManufacturersList(`${input}${path.sep}printers`)
+  const manufacturersList = generateManufacturersList(`${input}${path.sep}printers`)
   saveJsonToFile(manufacturersList, `${output}/manufacturers.ts`, 'export const ManufacturersList = ')
   copyManufacturersLogo(`${input}${path.sep}printers`, imageOutput)
 
-  // TODO generate index data type ?
+  const manufacturesDescription = generateManufacturerDescription(`${input}${path.sep}printers`)
+  saveJsonToFile(manufacturesDescription, `${output}/manufacturers-description.ts`, 'const obj = ', '; export const ManufacturersDescription = new Map(Object.entries(obj));')
 
   return 0
 }
