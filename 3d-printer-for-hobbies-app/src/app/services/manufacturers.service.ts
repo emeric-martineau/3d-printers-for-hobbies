@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 
-import { BehaviorSubject, Observable } from "rxjs"
-
-import { ManufacturersList } from './manufacturers'
-
+import { BehaviorSubject, Observable } from 'rxjs'
 
 @Injectable({
   providedIn: 'root'

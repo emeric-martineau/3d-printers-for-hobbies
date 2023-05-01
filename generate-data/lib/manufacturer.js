@@ -56,7 +56,7 @@ function generateManufacturerDescription(input, assetsOutput) {
 
   if (!fs.existsSync(descOutput)) {
     fs.mkdirSync(descOutput, { recursive: true });
-  }    
+  }
 
   manufacturersList.forEach(manufacturer => {
     const summaryFilename = `${input}/${manufacturer}/summary.md`

@@ -26,26 +26,32 @@ function main(input, output, assetsOutput) {
     return 1
   }
 
+  const indexFolder = `${assetsOutput}/index`
+
+  if (!fs.existsSync(indexFolder)) {
+    fs.mkdirSync(indexFolder, { recursive: true });
+  }
+
   // Save printer list file
-  saveJsonToFile(printersList, `${output}${path.sep}printers.ts`, 'export const PrintersList = ')
+  saveJsonToFile(printersList, `${indexFolder}/printers.json`)
   const idx = indexes.generateIndexesKeys(printersList[0])
 
   // Indexes with value
   const indexesValues = indexes.generateIndexesValues(idx, printersList)
-  saveJsonToFile(indexesValues, `${output}/indexes-values.ts`, 'const obj = ', '; export const IndexesValues = new Map(Object.entries(obj));')
+  saveJsonToFile(indexesValues, `${indexFolder}/indexes-values.json`)
 
   // Keys of indexes and description
   const keysDescription = generateIndexKeysDescription(`${input}${path.sep}filters.yaml`, indexesValues)
-  saveJsonToFile(keysDescription, `${output}/indexes-keys-description.ts`, 'const obj = ', '; export const IndexKeysDescription = new Map(Object.entries(obj));')
+  saveJsonToFile(keysDescription, `${indexFolder}/indexes-keys-description.json`)
 
   const indexWithArrayIndex = indexes.generateIndexesLink(indexesValues, printersList)
-  saveJsonToFile(indexWithArrayIndex, `${output}/indexes.ts`, 'const obj = ', '; export const Indexes = new Map(Object.entries(obj));')
+  saveJsonToFile(indexWithArrayIndex, `${indexFolder}/indexes.json`)
 
   const manufacturersList = generateManufacturersList(`${input}${path.sep}printers`)
   saveJsonToFile(manufacturersList, `${generateManufacturersOutputFolderName(assetsOutput)}/manufacturers.json`)
   copyManufacturersLogo(`${input}${path.sep}printers`, assetsOutput)
 
-  const manufacturesDescription = generateManufacturerDescription(`${input}${path.sep}printers`, assetsOutput)
+  generateManufacturerDescription(`${input}${path.sep}printers`, assetsOutput)
 
   return 0
 }
