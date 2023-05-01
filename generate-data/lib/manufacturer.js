@@ -5,6 +5,18 @@ const showdown = require('showdown')
 
 const HtmlConverter = new showdown.Converter()
 
+function generateManufacturersOutputFolderName(basedir) {
+  return `${basedir}manufacturers/`
+}
+
+function generateManufacturersLogoOutputFolderName(basedir) {
+  return `${basedir}manufacturers/logo`
+}
+
+function generateManufacturersDescriptionsOutputFolderName(basedir) {
+  return `${basedir}manufacturers/description`
+}
+
 function generateManufacturersList(input) {
     log.info('Generate manufactures list')
   
@@ -21,9 +33,9 @@ function generateManufacturersList(input) {
     return manufacturersList
 }
 
-function copyManufacturersLogo(input, output) {
+function copyManufacturersLogo(input, assetsOutput) {
     const manufacturersList = generateManufacturersList(input)
-    const imgOutput = `${output}manufacturers`
+    const imgOutput = generateManufacturersLogoOutputFolderName(assetsOutput)
 
     log.info('Copy manufacturer logo')
 
@@ -37,24 +49,27 @@ function copyManufacturersLogo(input, output) {
     })
 }
 
-function generateManufacturerDescription(input) {
+function generateManufacturerDescription(input, assetsOutput) {
   const manufacturersList = generateManufacturersList(input)
-  let manufacturersHtml = {}
+  const descOutput = generateManufacturersDescriptionsOutputFolderName(assetsOutput)
+  const imgOutput = generateManufacturersLogoOutputFolderName('./assets/')
+
+  if (!fs.existsSync(descOutput)) {
+    fs.mkdirSync(descOutput, { recursive: true });
+  }    
 
   manufacturersList.forEach(manufacturer => {
     const summaryFilename = `${input}/${manufacturer}/summary.md`
 
     if (fs.existsSync(summaryFilename)) {
-      let content = fs.readFileSync(summaryFilename, 'utf8')
+      let content = fs.readFileSync(summaryFilename, { encoding: 'utf8' })
       // Add logo header
-      content = `![${manufacturer}](./assets/manufacturers/${manufacturer}.png)\n\n${content}`
+      content = `![${manufacturer}](${imgOutput}/${manufacturer}.png)\n\n${content}`
 
-      manufacturersHtml[manufacturer] = HtmlConverter.makeHtml(content)
+      const data = HtmlConverter.makeHtml(content)
+      fs.writeFileSync(`${descOutput}/${manufacturer}.html`, data, { encoding: 'utf8' })
     }
-
   })
-
-  return manufacturersHtml
 }
 
-module.exports = { generateManufacturersList, copyManufacturersLogo, generateManufacturerDescription }
+module.exports = { generateManufacturersList, copyManufacturersLogo, generateManufacturerDescription, generateManufacturersOutputFolderName }

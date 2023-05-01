@@ -1,19 +1,32 @@
 import { Injectable } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
+
+import { BehaviorSubject, Observable } from "rxjs"
+
 import { ManufacturersList } from './manufacturers'
-import { ManufacturersDescription } from './manufacturers-description'
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ManufacturersService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient,
+    private sanitizer: DomSanitizer) { }
 
-  getManufacturersList() {
-    return ManufacturersList
+  getList(): Observable<string[]> {
+    return this.http.get<string[]>(`./assets/manufacturers/manufacturers.json`)
   }
 
-  getManufacturerDescripton(name: string): string {
-    return ManufacturersDescription.get(name) || "not found"
+  getDescriptions(manufacturer: string): Observable<SafeHtml> {
+    const data = new BehaviorSubject<SafeHtml>('Loading...')
+
+    this.http.get(`./assets/manufacturers/description/${manufacturer}.html`, {responseType:'text'}).subscribe(res => {
+      data.next(this.sanitizer.bypassSecurityTrustHtml(res))
+    })
+
+    return data
   }
 }

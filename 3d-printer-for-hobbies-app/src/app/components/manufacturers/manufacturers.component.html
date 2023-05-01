@@ -6,7 +6,7 @@
 </div>
 
 <div *ngIf="ManufacturerDescription == ''">
-  <div class="text-center" *ngFor="let manufacturer of manufacturers.getManufacturersList()">
+  <div class="text-center" *ngFor="let manufacturer of manufacturers">
     <img class="manufacturer" (click)="loadManufacturer(manufacturer)" [src]="getSmallLogo(manufacturer)" alt="Logo">
   </div>
 </div>

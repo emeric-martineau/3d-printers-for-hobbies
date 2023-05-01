@@ -1,4 +1,6 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
+import { SafeHtml } from '@angular/platform-browser'
+
 import { ManufacturersService } from '../../services/manufacturers.service'
 
 @Component({
@@ -6,16 +8,22 @@ import { ManufacturersService } from '../../services/manufacturers.service'
   templateUrl: './manufacturers.component.html',
   styleUrls: ['./manufacturers.component.css']
 })
-export class ManufacturersComponent {
-  ManufacturerDescription: string = ""
+export class ManufacturersComponent implements OnInit {
+  ManufacturerDescription: SafeHtml = ""
+  manufacturers: string[] = []
 
-  constructor(public manufacturers: ManufacturersService) { }
+  constructor(
+    private manufacturersService: ManufacturersService) { }
+
+  ngOnInit () {
+    this.manufacturersService.getList().subscribe(data => this.manufacturers = data)
+  }
 
   getSmallLogo(manufacturer: string): string {
-    return `assets/manufacturers/${manufacturer}_256x256.png`
+    return `assets/manufacturers/logo/${manufacturer}_256x256.png`
   }
 
   loadManufacturer(manufacturer: string) {
-    this.ManufacturerDescription = this.manufacturers.getManufacturerDescripton(manufacturer)
+    this.manufacturersService.getDescriptions(manufacturer).subscribe(text => this.ManufacturerDescription = text)
   }
 }

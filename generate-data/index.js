@@ -6,7 +6,7 @@ const log = require('./lib/log')
 const indexes = require('./lib/object-index')
 const { parseDocument, saveJsonToFile } = require('./lib/manage-document')
 const generatePrintersList = require('./lib/printers')
-const { generateManufacturersList, copyManufacturersLogo, generateManufacturerDescription } = require('./lib/manufacturer')
+const { generateManufacturersList, copyManufacturersLogo, generateManufacturerDescription, generateManufacturersOutputFolderName } = require('./lib/manufacturer')
 
 function generateIndexKeysDescription(filename, indexesValues) {
     // filters.yaml
@@ -19,7 +19,7 @@ function generateIndexKeysDescription(filename, indexesValues) {
     return indexes.generateIndexKeysDescription(doc.toJSON(), indexesValues)
 }
 
-function main(input, output, imageOutput) {
+function main(input, output, assetsOutput) {
   const [err, printersList] = generatePrintersList(`${input}${path.sep}printers`)
 
   if (err) {
@@ -42,17 +42,16 @@ function main(input, output, imageOutput) {
   saveJsonToFile(indexWithArrayIndex, `${output}/indexes.ts`, 'const obj = ', '; export const Indexes = new Map(Object.entries(obj));')
 
   const manufacturersList = generateManufacturersList(`${input}${path.sep}printers`)
-  saveJsonToFile(manufacturersList, `${output}/manufacturers.ts`, 'export const ManufacturersList = ')
-  copyManufacturersLogo(`${input}${path.sep}printers`, imageOutput)
+  saveJsonToFile(manufacturersList, `${generateManufacturersOutputFolderName(assetsOutput)}/manufacturers.json`)
+  copyManufacturersLogo(`${input}${path.sep}printers`, assetsOutput)
 
-  const manufacturesDescription = generateManufacturerDescription(`${input}${path.sep}printers`)
-  saveJsonToFile(manufacturesDescription, `${output}/manufacturers-description.ts`, 'const obj = ', '; export const ManufacturersDescription = new Map(Object.entries(obj));')
+  const manufacturesDescription = generateManufacturerDescription(`${input}${path.sep}printers`, assetsOutput)
 
   return 0
 }
 
 require('yargs')
-  .command('$0 [input] [output] [imageOutput]', 'Convert 3d printer and manufacturer data to JS', (yargs) => {
+  .command('$0 [input] [output] [assetsOutput]', 'Convert 3d printer and manufacturer data to JS', (yargs) => {
     yargs
       .positional('input', {
         describe: 'input folder'
@@ -60,10 +59,10 @@ require('yargs')
       .positional('output', {
         describe: 'output folder'
       })
-      .positional('imageOutput', {
+      .positional('assetsOutput', {
         describe: 'output folder for picture'
       })
-  }, ({ input, output, imageOutput }) => {
+  }, ({ input, output, assetsOutput }) => {
     if (!input || !output) {
       log.error('Missing args. Please run --help to know parameters.')
       process.exit(1)
@@ -79,8 +78,8 @@ require('yargs')
       return 1
     }
 
-    if (!fs.existsSync(imageOutput)) {
-      log.error(`Output folder '${imageOutput}' do not exists!`)
+    if (!fs.existsSync(assetsOutput)) {
+      log.error(`Output folder '${assetsOutput}' do not exists!`)
       return 1
     }
 
@@ -92,10 +91,10 @@ require('yargs')
       output = output + path.sep
     }
 
-    if (!imageOutput.endsWith(path.sep)) {
-      imageOutput = imageOutput + path.sep
+    if (!assetsOutput.endsWith(path.sep)) {
+      assetsOutput = assetsOutput + path.sep
     }
 
-    process.exit(main(input, output, imageOutput))
+    process.exit(main(input, output, assetsOutput))
   })
   .argv
