@@ -33,7 +33,7 @@ function main(input, output, assetsOutput) {
   }
 
   // Save printer list file
-  saveJsonToFile(printersList, `${indexFolder}/printers.json`)
+  saveJsonToFile(printersList, `${assetsOutput}/printers.json`)
   const idx = indexes.generateIndexesKeys(printersList[0])
 
   // Indexes with value
@@ -48,7 +48,7 @@ function main(input, output, assetsOutput) {
   saveJsonToFile(indexWithArrayIndex, `${indexFolder}/indexes.json`)
 
   const manufacturersList = generateManufacturersList(`${input}${path.sep}printers`)
-  saveJsonToFile(manufacturersList, `${generateManufacturersOutputFolderName(assetsOutput)}/manufacturers.json`)
+  saveJsonToFile(manufacturersList, `${generateManufacturersOutputFolderName(assetsOutput)}manufacturers.json`)
   copyManufacturersLogo(`${input}${path.sep}printers`, assetsOutput)
 
   generateManufacturerDescription(`${input}${path.sep}printers`, assetsOutput)

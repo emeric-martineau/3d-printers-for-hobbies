@@ -88,19 +88,21 @@ export class PrintTableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.indexes.getReady().subscribe(isReady => {
-      if (isReady) {
-        this.initPrinterList()
+    this.indexes.getReady().subscribe(isIndexReady => {
+      if (isIndexReady) {
+        this.printers.getReady().subscribe(isPrintersReady => {
+          this.initPrinterList()
 
-        // Init table header with label
-        TABLE_COLUMNS.forEach(key => {
-          this.tableHeader.push(
-            new TableHeader(key, this.indexes.getKeyDescription(key))
-          )
+          // Init table header with label
+          TABLE_COLUMNS.forEach(key => {
+            this.tableHeader.push(
+              new TableHeader(key, this.indexes.getKeyDescription(key))
+            )
+          })
+
+          // Init filter field
+          this.indexes.getAllKeysDescription().forEach((value, key) =>  this.filtersNameList.push(new Filter(key, value)))
         })
-
-        // Init filter field
-        this.indexes.getAllKeysDescription().forEach((value, key) =>  this.filtersNameList.push(new Filter(key, value)))
       }
     })
   }
