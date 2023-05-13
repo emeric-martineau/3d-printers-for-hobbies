@@ -5,3 +5,25 @@
 .dropdown-item {
   cursor: pointer;
 }
+
+.order-col {
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.order-col-icon {
+  display: inline;
+}
+
+.order-col:hover .order-col-icon {
+  visibility: visible;
+  opacity: 1;
+}
+
+.order-col-icon-show {
+  visibility: visible;
+}
+
+.order-col-icon-hide {
+  visibility: hidden;
+}

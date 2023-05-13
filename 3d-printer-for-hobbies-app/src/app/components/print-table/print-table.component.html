@@ -28,32 +28,36 @@
 
 <filters-gutter [filters]="currentFilterList" (onDeleteEvent)="onDeleteFilter($event)"></filters-gutter>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col" *ngFor="let head of tableHeader">{{ head.text }}</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr scope="row" *ngFor="let printer of printersIndexList | slice:getStartPage():getEndPage()">
-      <td scope="col" *ngFor="let head of tableHeader">{{ getProperty(getOnePrinterByIndex(printer), head.key) }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col" *ngFor="let head of tableHeader" class="order-col" (click)="onSortColumn(head)">
+          <i class="bi order-col-icon" [ngClass]="{'order-col-icon-show': head.sort, 'order-col-icon-hide': !head.sort, 'bi-arrow-down': head.sortAsc, 'bi-arrow-up': !head.sortAsc}"></i>
+          {{ head.text }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let printer of printersIndexList | slice:getStartPage():getEndPage()">
+        <td *ngFor="let head of tableHeader">{{ getProperty(getOnePrinterByIndex(printer), head.key) }}</td>
+      </tr>
+    </tbody>
+  </table>
 
-<div class="row">
-  <div class="col">
-    <ngb-pagination [collectionSize]="printersIndexList.length" [(page)]="page" [pageSize]="printersPerPage" aria-label="Default pagination"></ngb-pagination>
-  </div>
-  <div class="col">
-    Printers per page
-    <div class="btn-group" ngbDropdown role="group" aria-label="Printer per page">
-      <button type="button" class="btn btn-outline-primary" ngbDropdownToggle>{{ printersPerPage }}</button>
-      <ul ngbDropdownMenu>
-        <li *ngFor="let nb of [5, 10, 20, 50, 100]">
-          <span ngbDropdownItem (click)="printersPerPage = nb">{{ nb }}</span>
-        </li>
-      </ul>
+  <div class="row">
+    <div class="col">
+      <ngb-pagination [collectionSize]="printersIndexList.length" [(page)]="page" [pageSize]="printersPerPage" aria-label="Default pagination"></ngb-pagination>
+    </div>
+    <div class="col">
+      Printers per page
+      <div class="btn-group" ngbDropdown role="group" aria-label="Printer per page">
+        <button type="button" class="btn btn-outline-primary" ngbDropdownToggle>{{ printersPerPage }}</button>
+        <ul ngbDropdownMenu>
+          <li *ngFor="let nb of [5, 10, 20, 50, 100]">
+            <span ngbDropdownItem (click)="printersPerPage = nb">{{ nb }}</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

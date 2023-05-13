@@ -21,7 +21,7 @@ const TABLE_COLUMNS = [
 ]
 
 class TableHeader {
-  constructor(public key: string, public text: string) { }
+  constructor(public key: string, public text: string, public sort: boolean = false, public sortAsc: boolean = false) { }
 }
 
 @Component({
@@ -62,7 +62,7 @@ export class PrintTableComponent implements OnInit {
       let data: number[] = []
 
       item.values.forEach(value => {
-        data = data.concat(this.indexes.getOneIndexForOneKeyValue(item.key, value))
+        data = data.concat(this.indexes.getPrintersListForOneKeyValue(item.key, value))
       })
 
       allIndex.set(item.key, data)
@@ -87,6 +87,50 @@ export class PrintTableComponent implements OnInit {
     }
   }
 
+  private sort(key: string, sortAsc: boolean) {
+    // First take type of data to sort right
+    const typeOfKey = this.indexes.getTypeOfIndex(key)
+
+    let sortFunction = (a: any, b: any): number => 0
+
+    switch(typeOfKey) {
+      case 'number': {
+         if (sortAsc) {
+           sortFunction = (a: number, b: number): number => a - b
+         } else {
+           sortFunction = (a: number, b: number): number => b - a
+         }
+         break;
+      }
+      case 'string': {
+        if (sortAsc) {
+          sortFunction = (a: string, b: string): number => a.localeCompare(b)
+        } else {
+          sortFunction = (a: string, b: string): number => b.localeCompare(a)
+        }
+        break;
+      }
+      case 'boolean': {
+        if (sortAsc) {
+          sortFunction = (a: boolean, b: boolean): number => a ? -1 : 1
+        } else {
+          sortFunction = (a: boolean, b: boolean): number => b ? -1 : 1
+        }
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+
+    this.printersIndexList.sort((printer1, printer2) => {
+      const value1 = this.getProperty(this.getOnePrinterByIndex(printer1), key)
+      const value2 = this.getProperty(this.getOnePrinterByIndex(printer2), key)
+
+      return sortFunction(value1, value2)
+    })
+  }
+
   ngOnInit(): void {
     this.indexes.getReady().subscribe(isIndexReady => {
       if (isIndexReady) {
@@ -107,6 +151,9 @@ export class PrintTableComponent implements OnInit {
     })
   }
 
+  /////////////////////////////////////////////////////////////////////////////
+  // Getter & Setter
+
   // Read value
   getProperty(obj: any, path: string) {
     path.split('.').forEach(key => {
@@ -120,10 +167,31 @@ export class PrintTableComponent implements OnInit {
     return this.printers.getOnePrinterByIndex(index)
   }
 
+  getStartPage() {
+    return (this.page - 1) * this.printersPerPage
+  }
+
+  getEndPage() {
+    return this.getStartPage() + this.printersPerPage
+  }
+
+  isFilterValueIsSelected(filterKey: string, value: string) {
+    let item = this.currentFilterList.find(element => element.key === filterKey)
+    let selected = false
+
+    if (item) {
+      selected = item.values.includes(value)
+    }
+
+    return selected
+  }
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Event
   onSelectedFilterName(filterName: string, filterText: string) {
     this.selectedFilter.key = filterName
     this.selectedFilter.text = filterText
-    this.selectedFilter.values = this.indexes.getValuesOfOneIndex(filterName)
+    this.selectedFilter.values = this.indexes.getValuesOfIndexAsString(filterName)
   }
 
   onSelectedFilterValue(filter: FilterWithValue, value: string) {
@@ -156,22 +224,21 @@ export class PrintTableComponent implements OnInit {
     }
   }
 
-  isFilterValueIsSelected(filterKey: string, value: string) {
-    let item = this.currentFilterList.find(element => element.key === filterKey)
-    let selected = false
+  onSortColumn(column: TableHeader) {
+    let oldState
 
-    if (item) {
-      selected = item.values.includes(value)
-    }
+    this.tableHeader.forEach(c => {
+      oldState = c.sort
+      c.sort = c === column
 
-    return selected
-  }
+      if (c.sort && oldState) {
+        // Invert sort
+        c.sortAsc = !c.sortAsc
+      }
 
-  getStartPage() {
-    return (this.page - 1) * this.printersPerPage
-  }
-
-  getEndPage() {
-    return this.getStartPage() + this.printersPerPage
+      if (c.sort) {
+        this.sort(c.key, c.sortAsc)
+      }
+    })
   }
 }

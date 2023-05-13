@@ -47,28 +47,46 @@ export class IndexesService {
     return this.ready.asObservable()
   }
 
+  // Return all of description for all keys
   getAllKeysDescription(): Map<string, string> {
     return this.IndexKeysDescription
   }
 
+  // Get the description of this index key
   getKeyDescription(key: string): string {
     return this.IndexKeysDescription.get(key) || ''
   }
 
+  // Return all database of values by index key name
   getIndexValues() {
     return this.IndexesValues
   }
 
-  getValuesOfOneIndex(key: string): string[] {
+  // Return the type
+  getTypeOfIndex(key: string): string {
+    let values = this.IndexesValues.get(key)
+
+    if (values === undefined || values.length === 0) {
+      return 'undefined'
+    }
+
+    return typeof values[0]
+  }
+
+  // Return list of value in database for one key of index
+  getValuesOfIndexAsString(key: string): string[] {
     let values = this.IndexesValues.get(key)
 
     if (values === undefined) {
       values = []
     }
+
     return values.flatMap((value: string|number|boolean) => String(value))
   }
 
-  getOneIndexForOneKeyValue(key: string, value: string): number[] {
+  // Get list of printers (by index in list) that contains this value of key.
+  // That help to seach printers with this value.
+  getPrintersListForOneKeyValue(key: string, value: string): number[] {
     return this.Indexes.get(`${key}-${value}`) || []
   }
 }

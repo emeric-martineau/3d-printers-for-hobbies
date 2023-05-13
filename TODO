@@ -1,4 +1,3 @@
-3 - Allow sort table
 4 - When click on filter in gutter, select filter
 5 - Add footer with about, copyright... 
 6 - Add in /data/ a non-filter.yml file with all other key to display printer
