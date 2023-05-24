@@ -224,6 +224,10 @@ export class PrintTableComponent implements OnInit {
     }
   }
 
+  onSelectedFilter(filter: FilterWithValue) {
+    this.selectedFilter = filter
+  }
+
   onSortColumn(column: TableHeader) {
     let oldState
 

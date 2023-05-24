@@ -26,7 +26,7 @@
 	</div>
 </div>
 
-<filters-gutter [filters]="currentFilterList" (onDeleteEvent)="onDeleteFilter($event)"></filters-gutter>
+<filters-gutter [filters]="currentFilterList" (onDeleteEvent)="onDeleteFilter($event)" (onSelectedEvent)="onSelectedFilter($event)"></filters-gutter>
 
 <div class="table-responsive">
   <table class="table table-striped">

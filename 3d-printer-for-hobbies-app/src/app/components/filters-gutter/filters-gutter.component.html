@@ -1,5 +1,5 @@
 <div>
-  <span class="badge rounded-pill text-bg-secondary" *ngFor="let filter of filters">
+  <span class="badge rounded-pill text-bg-secondary" (click)="onSelected(filter)" *ngFor="let filter of filters">
     <i class="bi bi-x-circle-fill close" (click)="onDelete(filter.key)"></i> {{ filter.text }}: <a *ngFor="let value of filter.values; let last = last">"{{ value }}"{{ last ? '' : ',' }} </a>
   </span>
 </div>

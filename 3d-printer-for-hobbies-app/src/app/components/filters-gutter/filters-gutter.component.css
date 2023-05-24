@@ -5,3 +5,7 @@
 .close:hover {
   opacity: 0.8;
 }
+
+div > span {
+  cursor: default;
+}
