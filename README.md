@@ -21,3 +21,8 @@ Exemple:
                               yyyy/                <- printer serie
                                   zzzz.yaml        <- one printer in serie
 ```
+# Licences
+
+Code are covered by Apache License 2.0
+
+Data are covered by Creative Commones Attribution-NonCommercial-ShareAlike 4.0 International

@@ -1,0 +1,40 @@
+footer {
+  margin-top: 20px !important;
+  color:#ffffff;
+}
+
+.bi-heart-fill {
+  color: #E90606;
+}
+
+.footer ul {
+  padding:0;
+  list-style:none;
+  text-align:center;
+  font-size:18px;
+  line-height:1.6;
+  margin-bottom:0;
+}
+
+.footer li {
+  padding:0 10px;
+}
+
+.footer ul a {
+  color:inherit;
+  text-decoration:none;
+  opacity:0.8;
+}
+
+.footer ul a:hover {
+  opacity:1;
+}
+
+.footer .copyright {
+  margin-top:15px;
+  text-align:center;
+  font-size:13px;
+  margin-bottom:0;
+}
+
+/* Credit to https://epicbootstrap.com/snippets/footer-basic */

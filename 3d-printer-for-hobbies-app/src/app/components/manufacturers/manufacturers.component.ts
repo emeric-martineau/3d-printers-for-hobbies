@@ -4,7 +4,7 @@ import { SafeHtml } from '@angular/platform-browser'
 import { ManufacturersService } from '../../services/manufacturers.service'
 
 @Component({
-  selector: 'app-manufacturers',
+  selector: 'manufacturers',
   templateUrl: './manufacturers.component.html',
   styleUrls: ['./manufacturers.component.css']
 })

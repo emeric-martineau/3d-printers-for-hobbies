@@ -10,7 +10,10 @@ import { AppHeaderComponent } from './components/app-header/app-header.component
 import { HomeComponent } from './components/home/home.component'
 import { ManufacturersComponent } from './components/manufacturers/manufacturers.component'
 import { PrintTableComponent } from './components/print-table/print-table.component'
-import { FiltersGutterComponent } from './components/filters-gutter/filters-gutter.component'
+import { FiltersGutterComponent } from './components/filters-gutter/filters-gutter.component';
+import { AppFooterComponent } from './components/app-footer/app-footer.component';
+import { AboutComponent } from './components/about/about.component';
+import { TermsComponent } from './components/terms/terms.component'
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { FiltersGutterComponent } from './components/filters-gutter/filters-gutt
     HomeComponent,
     ManufacturersComponent,
     PrintTableComponent,
-    FiltersGutterComponent
+    FiltersGutterComponent,
+    AppFooterComponent,
+    AboutComponent,
+    TermsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
-5 - Add footer with about, copyright... 
 6 - Add in /data/ a non-filter.yml file with all other key to display printer
     Add printer picture
 8 - Add Compare printer page
-9 - On filtter value , remove value if can't be selected (no data found)
+9 - On filter value , remove value if can't be selected (no data found)
+10 - Add page for designer like Fusion 360
+11 - Add page for slicer like cura
