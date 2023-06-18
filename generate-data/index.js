@@ -57,7 +57,7 @@ function main(input, output, assetsOutput) {
 }
 
 require('yargs')
-  .command('$0 [input] [output] [assetsOutput]', 'Convert 3d printer and manufacturer data to JS', (yargs) => {
+  .command('$0 [input] [output] [assetsOutput]', 'Convert 3d printers and manufacturers data to JS', (yargs) => {
     yargs
       .positional('input', {
         describe: 'input folder'

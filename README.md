@@ -1,6 +1,6 @@
-# 3D Printer for hobbies
+# 3D Printers for hobbies
 
-This repository contains sources files to generate web site of `3D Printer for hobbies`.
+This repository contains sources files to generate web site of `3D Printers for hobbies`.
 
 This repository contains two folders:
  * `data` : contains all printers and manufacturer data
