@@ -8,13 +8,18 @@ import { BehaviorSubject, Observable } from 'rxjs'
 })
 export class PrintersService {
   private PrintersList: any = undefined
+  private PrintersAttributs: any = undefined
 
   private ready = new BehaviorSubject(false)
 
   constructor(private http: HttpClient) {
-    this.http.get(`./assets/printers.json`).subscribe(data => {
+    this.http.get(`./assets/printers/printers.json`).subscribe(data => {
       this.PrintersList = data
-      this.ready.next(true)
+
+      this.http.get(`./assets/printers/printers-attributs.json`).subscribe(data => {
+        this.PrintersAttributs = data
+        this.ready.next(true)
+      })
     })
   }
 
@@ -24,6 +29,10 @@ export class PrintersService {
 
   getOnePrinterByIndex(index: number) {
     return this.PrintersList[index]
+  }
+
+  getPrintersAttributs() {
+    return this.PrintersAttributs
   }
 
   getReady(): Observable<boolean> {

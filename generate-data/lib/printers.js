@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const log = require('./log')
-const { readAllDoc } = require('./manage-document')
+const { readAllDoc, parseDocument } = require('./manage-document')
 const { generateManufacturersList } = require('./manufacturer')
 
 function generateSeriesPrintersList(input) {
@@ -19,20 +19,20 @@ function generateSeriesPrintersList(input) {
     return seriesList
 }
   
-function generateFilesList(input) {
-    log.info(`Generate list of file from ${input}`)
-    let filesList = []
+// function generateFilesList(input) {
+//     log.info(`Generate list of file from ${input}`)
+//     let filesList = []
   
-    fs.readdirSync(input).forEach(f => {
-      if (fs.lstatSync(input + path.sep + f).isFile() && f.split('.').pop() === 'yaml') {
-        filesList.push(f)
-      }
-    })
+//     fs.readdirSync(input).forEach(f => {
+//       if (fs.lstatSync(input + path.sep + f).isFile() && f.split('.').pop() === 'yaml') {
+//         filesList.push(f)
+//       }
+//     })
   
-    log.info(`${filesList.length} files found`)
+//     log.info(`${filesList.length} files found`)
   
-    return filesList
-}
+//     return filesList
+// }
 
 function generateSeriesPrintersList(input) {
     log.info(`Generate printer's serie list form ${input}`)
@@ -83,4 +83,23 @@ function generatePrintersList(input) {
     return [false, printersList]
 }
 
-module.exports = generatePrintersList
+function generatePagePrinterInfoIndex(filename) {
+    // filters.yaml
+    let [err2, doc] = parseDocument(filename)
+
+    if (err2.length != 0) {
+      return 1
+    }
+
+    return doc.toJSON()
+}
+
+function generatePrintersOutputFolderName(basedir) {
+  return `${basedir}printers/`
+}
+
+module.exports = {
+  generatePrintersList,
+  generatePagePrinterInfoIndex,
+  generatePrintersOutputFolderName
+}

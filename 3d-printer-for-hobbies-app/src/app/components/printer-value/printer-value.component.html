@@ -1,0 +1,17 @@
+<td>{{ text }}</td>
+<td [ngSwitch]="getType(value)">
+  <ng-container *ngSwitchCase="'object'">
+    <dl *ngFor="let item of value | keyvalue">
+      <dt>{{ item.key }}</dt>
+      <dd>{{ item.value }}</dd>
+    </dl>
+  </ng-container>
+  <ng-container *ngSwitchCase="'array'">
+    <ul *ngFor="let item of value">
+      <li>{{ item }}</li>
+    </ul>
+  </ng-container>
+  <ng-container *ngSwitchDefault>
+    {{ value }}
+  </ng-container>
+</td>

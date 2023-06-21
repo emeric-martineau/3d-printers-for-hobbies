@@ -1,33 +1,101 @@
 ---
 printer:
-  name: Name
-  noise: Noize
-  size: Printer size
-  type: Type
-  release_year: Release year
-  price: Price
-  closed: Is closed
-  
+  name:
+    text: Name
+    filter: true
+  noise:
+    text: Noize
+    filter: true
+  size:
+    text: Printer size
+    filter: true
+  type:
+    text: Type
+    filter: true
+  release_year:
+    text: Release year
+    filter: true
+  price:
+    text: Price
+    filter: true
+  closed:
+    text: Is closed
+    filter: true
+  power:
+    text: Power
+  voltage:
+    text: Voltage
+  weight:
+    text: Weight
+
 print:
-  volume: Volume
-  speed: Speed
+  volume:
+    text: Volume
+    filter: true
+  speed:
+    text: Speed
+    filter: true
   bed:
-    surface: Bed surface
-    max_temperature: Bed temperature
+    surface:
+      text: Bed surface
+      filter: true
+    max_temperature:
+      text: Bed temperature
+      filter: true
+  precision:
+    text: Precision
+  layer_resolution:
+    text: Layer resolution
 
 nozzle:
-  number: Nozzle number
-  max_temperature: Nozzle temperature
-  extruder_type: Extruder
+  number:
+    text: Nozzle number
+    filter: true
+  max_temperature:
+    text: Nozzle temperature
+    filter: true
+  extruder_type:
+    text: Extruder
+    filter: true
+  diameter:
+    text: Default nozzle diameter
 
 filament:
-  diameter: Filament diameter
-  type: Filament type
+  diameter:
+    text: Filament diameter
+    filter: true
+  type:
+    text: Filament type
+    filter: true
 
 other:
-  motherboard: Motherboard type
-  firmware: Firmware
-  bed_leveling: Leveling type
-  runout_sensor: Runout sensor
-  resume_printing: Resume printing
-  print_method: Print Method
+  motherboard:
+    text: Motherboard type
+    filter: true
+  firmware:
+    text: Firmware
+    filter: true
+  bed_leveling:
+    text: Leveling type
+    filter: true
+  runout_sensor:
+    text: Runout sensor
+    filter: true
+  resume_printing:
+    text: Resume printing
+    filter: true
+  print_method:
+    text: Print Method
+    filter: true
+  supported_file_format:
+    text: File format
+
+screen:
+  size:
+    text: Size
+  resolution:
+    text: Resolution
+  type:
+    text: Type
+  color:
+    text: Color

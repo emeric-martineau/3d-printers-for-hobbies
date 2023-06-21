@@ -38,8 +38,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let printer of printersIndexList | slice:getStartPage():getEndPage()">
-        <td *ngFor="let head of tableHeader">{{ getProperty(getOnePrinterByIndex(printer), head.key) }}</td>
+      <tr *ngFor="let printerIndex of printersIndexList | slice:getStartPage():getEndPage()">
+        <td *ngFor="let head of tableHeader">
+          <a *ngIf="head.key === 'printer.name'" [routerLink]="['/printer', printerIndex]">{{ getProperty(getOnePrinterByIndex(printerIndex), head.key) }}</a>
+          <span *ngIf="head.key !== 'printer.name'">{{ getProperty(getOnePrinterByIndex(printerIndex), head.key) }}</span>
+        </td>
       </tr>
     </tbody>
   </table>

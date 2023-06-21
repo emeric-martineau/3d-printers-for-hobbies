@@ -142,8 +142,8 @@ module.exports = {
       v = pseudoJsonPath(indexDescription, key)
 
       //if (!(v === undefined || v === null)) {
-      if (v !== undefined && v !== null) {
-        keysDescription[key] = v
+      if (v !== undefined && v !== null && v['filter']) {
+        keysDescription[key] = v['text']
       }
     })
 

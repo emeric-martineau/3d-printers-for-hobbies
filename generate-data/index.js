@@ -4,9 +4,27 @@ const fs = require('fs')
 const path = require('path')
 const log = require('./lib/log')
 const indexes = require('./lib/object-index')
-const { parseDocument, saveJsonToFile } = require('./lib/manage-document')
-const generatePrintersList = require('./lib/printers')
-const { generateManufacturersList, copyManufacturersLogo, generateManufacturerDescription, generateManufacturersOutputFolderName } = require('./lib/manufacturer')
+const {
+  parseDocument,
+  saveJsonToFile
+} = require('./lib/manage-document')
+const {
+  generatePrintersList,
+  generatePagePrinterInfoIndex,
+  generatePrintersOutputFolderName
+} = require('./lib/printers')
+const {
+  generateManufacturersList,
+  copyManufacturersLogo,
+  generateManufacturerDescription,
+  generateManufacturersOutputFolderName
+} = require('./lib/manufacturer')
+
+function createDir(dir) {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+}
 
 function generateIndexKeysDescription(filename, indexesValues) {
     // filters.yaml
@@ -19,7 +37,7 @@ function generateIndexKeysDescription(filename, indexesValues) {
     return indexes.generateIndexKeysDescription(doc.toJSON(), indexesValues)
 }
 
-function main(input, output, assetsOutput) {
+function main(input, assetsOutput) {
   const [err, printersList] = generatePrintersList(`${input}${path.sep}printers`)
 
   if (err) {
@@ -28,12 +46,12 @@ function main(input, output, assetsOutput) {
 
   const indexFolder = `${assetsOutput}/index`
 
-  if (!fs.existsSync(indexFolder)) {
-    fs.mkdirSync(indexFolder, { recursive: true });
-  }
+  createDir(indexFolder)
+  createDir(generateManufacturersOutputFolderName(assetsOutput))
+  createDir(generatePrintersOutputFolderName(assetsOutput))
 
   // Save printer list file
-  saveJsonToFile(printersList, `${assetsOutput}/printers.json`)
+  saveJsonToFile(printersList, `${generatePrintersOutputFolderName(assetsOutput)}/printers.json`)
   const idx = indexes.generateIndexesKeys(printersList[0])
 
   // Indexes with value
@@ -53,23 +71,24 @@ function main(input, output, assetsOutput) {
 
   generateManufacturerDescription(`${input}${path.sep}printers`, assetsOutput)
 
+  // Generate file to display all information of printer
+  const printersAttributs = generatePagePrinterInfoIndex(`${input}${path.sep}filters.yaml`, assetsOutput)
+  saveJsonToFile(printersAttributs, `${generatePrintersOutputFolderName(assetsOutput)}printers-attributs.json`)  
+
   return 0
 }
 
 require('yargs')
-  .command('$0 [input] [output] [assetsOutput]', 'Convert 3d printers and manufacturers data to JS', (yargs) => {
+  .command('$0 [input] [assetsOutput]', 'Convert 3d printers and manufacturers data to JS', (yargs) => {
     yargs
       .positional('input', {
         describe: 'input folder'
       })
-      .positional('output', {
-        describe: 'output folder'
-      })
       .positional('assetsOutput', {
         describe: 'output folder for picture'
       })
-  }, ({ input, output, assetsOutput }) => {
-    if (!input || !output) {
+  }, ({ input, assetsOutput }) => {
+    if (!input) {
       log.error('Missing args. Please run --help to know parameters.')
       process.exit(1)
     }
@@ -79,11 +98,6 @@ require('yargs')
       return 1
     }
   
-    if (!fs.existsSync(output)) {
-      log.error(`Output folder '${output}' do not exists!`)
-      return 1
-    }
-
     if (!fs.existsSync(assetsOutput)) {
       log.error(`Output folder '${assetsOutput}' do not exists!`)
       return 1
@@ -93,14 +107,10 @@ require('yargs')
       input = input.substring(0, input.length-1)
     }
 
-    if (!output.endsWith(path.sep)) {
-      output = output + path.sep
-    }
-
     if (!assetsOutput.endsWith(path.sep)) {
       assetsOutput = assetsOutput + path.sep
     }
 
-    process.exit(main(input, output, assetsOutput))
+    process.exit(main(input, assetsOutput))
   })
   .argv

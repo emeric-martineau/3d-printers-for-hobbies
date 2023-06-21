@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component'
 import { ManufacturersComponent } from './components/manufacturers/manufacturers.component'
 import { AboutComponent } from './components/about/about.component'
 import { TermsComponent } from './components/terms/terms.component'
+import { DisplayPrinterComponent } from './components/display-printer/display-printer.component'
 
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'terms',
     component: TermsComponent
+  },
+  {
+    path: 'printer/:id',
+    component: DisplayPrinterComponent
   },
   {
     path: '',

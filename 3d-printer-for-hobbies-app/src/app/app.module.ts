@@ -13,7 +13,9 @@ import { PrintTableComponent } from './components/print-table/print-table.compon
 import { FiltersGutterComponent } from './components/filters-gutter/filters-gutter.component';
 import { AppFooterComponent } from './components/app-footer/app-footer.component';
 import { AboutComponent } from './components/about/about.component';
-import { TermsComponent } from './components/terms/terms.component'
+import { TermsComponent } from './components/terms/terms.component';
+import { DisplayPrinterComponent } from './components/display-printer/display-printer.component';
+import { PrinterValueComponent } from './components/printer-value/printer-value.component'
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { TermsComponent } from './components/terms/terms.component'
     FiltersGutterComponent,
     AppFooterComponent,
     AboutComponent,
-    TermsComponent
+    TermsComponent,
+    DisplayPrinterComponent,
+    PrinterValueComponent
   ],
   imports: [
     BrowserModule,

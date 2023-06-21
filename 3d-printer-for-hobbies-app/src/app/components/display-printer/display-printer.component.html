@@ -1,0 +1,19 @@
+<div class="container">
+  <table class="table table-bordered" *ngIf="printer != null">
+    <tbody>
+      <ng-container *ngFor="let s of sections">
+        <tr>
+          <th scope="row" colspan="2" class="table-active">{{ s.text }}</th>
+        </tr>
+        <ng-container *ngFor="let pa of getSectionData(s.key) | keyvalue">
+          <ng-container [ngSwitch]="isSubAttribut(s.key, '' + pa.key)">
+            <tr *ngSwitchCase="false" printer-value [text]="getAttributText(s.key, '' + pa.key)" [value]="getAttributValue(s.key, '' + pa.key)"></tr>
+            <ng-container *ngSwitchDefault>
+              <tr *ngFor="let subpa of getSubAttribut(s.key, '' + pa.key) | keyvalue" printer-value [text]="getAttributText(s.key, '' + pa.key, '' + subpa.key)" [value]="getAttributValue(s.key, '' + pa.key, '' + subpa.key)"></tr>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

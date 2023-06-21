@@ -72,4 +72,9 @@ function generateManufacturerDescription(input, assetsOutput) {
   })
 }
 
-module.exports = { generateManufacturersList, copyManufacturersLogo, generateManufacturerDescription, generateManufacturersOutputFolderName }
+module.exports = {
+  generateManufacturersList,
+  copyManufacturersLogo,
+  generateManufacturerDescription,
+  generateManufacturersOutputFolderName
+}
