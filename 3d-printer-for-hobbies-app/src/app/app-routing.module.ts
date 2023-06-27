@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { HomeComponent } from './components/home/home.component'
-import { ManufacturersComponent } from './components/manufacturers/manufacturers.component'
-import { AboutComponent } from './components/about/about.component'
-import { TermsComponent } from './components/terms/terms.component'
-import { DisplayPrinterComponent } from './components/display-printer/display-printer.component'
+import { HomeComponent } from './pages/home/home.component'
+import { ManufacturersComponent } from './pages/manufacturers/manufacturers.component'
+import { AboutComponent } from './pages/about/about.component'
+import { TermsComponent } from './pages/terms/terms.component'
+import { DisplayPrinterComponent } from './pages/display-printer/display-printer.component'
 
 
 const routes: Routes = [

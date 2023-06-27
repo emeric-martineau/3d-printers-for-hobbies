@@ -7,14 +7,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { AppHeaderComponent } from './components/app-header/app-header.component'
-import { HomeComponent } from './components/home/home.component'
-import { ManufacturersComponent } from './components/manufacturers/manufacturers.component'
+import { HomeComponent } from './pages/home/home.component'
+import { ManufacturersComponent } from './pages/manufacturers/manufacturers.component'
 import { PrintTableComponent } from './components/print-table/print-table.component'
 import { FiltersGutterComponent } from './components/filters-gutter/filters-gutter.component';
 import { AppFooterComponent } from './components/app-footer/app-footer.component';
-import { AboutComponent } from './components/about/about.component';
-import { TermsComponent } from './components/terms/terms.component';
-import { DisplayPrinterComponent } from './components/display-printer/display-printer.component';
+import { AboutComponent } from './pages/about/about.component';
+import { TermsComponent } from './pages/terms/terms.component';
+import { DisplayPrinterComponent } from './pages/display-printer/display-printer.component';
 import { PrinterValueComponent } from './components/printer-value/printer-value.component'
 
 @NgModule({
