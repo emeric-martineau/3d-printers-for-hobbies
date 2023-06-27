@@ -4,7 +4,7 @@ import { HomeComponent } from './pages/home/home.component'
 import { ManufacturersComponent } from './pages/manufacturers/manufacturers.component'
 import { AboutComponent } from './pages/about/about.component'
 import { TermsComponent } from './pages/terms/terms.component'
-import { DisplayPrinterComponent } from './pages/display-printer/display-printer.component'
+import { PrinterComponent } from './pages/printer/printer.component'
 
 
 const routes: Routes = [
@@ -22,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'printer/:id',
-    component: DisplayPrinterComponent
+    component: PrinterComponent
   },
   {
     path: '',

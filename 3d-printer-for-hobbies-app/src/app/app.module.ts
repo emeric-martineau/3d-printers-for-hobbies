@@ -14,7 +14,7 @@ import { FiltersGutterComponent } from './components/filters-gutter/filters-gutt
 import { AppFooterComponent } from './components/app-footer/app-footer.component';
 import { AboutComponent } from './pages/about/about.component';
 import { TermsComponent } from './pages/terms/terms.component';
-import { DisplayPrinterComponent } from './pages/display-printer/display-printer.component';
+import { PrinterComponent } from './pages/printer/printer.component';
 import { PrinterValueComponent } from './components/printer-value/printer-value.component'
 
 @NgModule({
@@ -28,7 +28,7 @@ import { PrinterValueComponent } from './components/printer-value/printer-value.
     AppFooterComponent,
     AboutComponent,
     TermsComponent,
-    DisplayPrinterComponent,
+    PrinterComponent,
     PrinterValueComponent
   ],
   imports: [

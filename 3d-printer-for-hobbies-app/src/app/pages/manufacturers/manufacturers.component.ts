@@ -11,12 +11,17 @@ import { ManufacturersService } from '../../services/manufacturers.service'
 export class ManufacturersComponent implements OnInit {
   ManufacturerDescription: SafeHtml = ""
   manufacturers: string[] = []
+  // To know if can display page
+  canDisplayPage = false
 
   constructor(
     private manufacturersService: ManufacturersService) { }
 
   ngOnInit () {
-    this.manufacturersService.getList().subscribe(data => this.manufacturers = data)
+    this.manufacturersService.getList().subscribe(data => {
+      this.manufacturers = data
+      this.canDisplayPage = true
+    })
   }
 
   getSmallLogo(manufacturer: string): string {

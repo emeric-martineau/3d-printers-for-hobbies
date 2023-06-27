@@ -13,24 +13,30 @@ const SECTIONS = [
 ]
 
 @Component({
-  selector: 'display-printer',
-  templateUrl: './display-printer.component.html',
-  styleUrls: ['./display-printer.component.css']
+  selector: 'printer',
+  templateUrl: './printer.component.html',
+  styleUrls: ['./printer.component.css']
 })
-export class DisplayPrinterComponent implements OnInit, OnDestroy {
+export class PrinterComponent implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription()
   printer: any = null
   sections = SECTIONS
-  printersAttributs
+  printersAttributs: any = null
+  // To know if can display page
+  canDisplayPage = false
 
-  constructor (private route: ActivatedRoute, private printers: PrintersService) {
-    this.printersAttributs = printers.getPrintersAttributs()
-  }
+  constructor (private route: ActivatedRoute, private printers: PrintersService) {}
 
   async ngOnInit () {
-    this.subscription = this.route.params.subscribe(async (params) => {
-      const index = parseInt(params["id"], 10)
-      this.printer = this.printers.getOnePrinterByIndex(index)
+    this.printers.getReady().subscribe(isIndexReady => {
+      if (isIndexReady) {
+        this.subscription = this.route.params.subscribe(async (params) => {
+          const index = parseInt(params["id"], 10)
+          this.printer = this.printers.getOnePrinterByIndex(index)
+          this.printersAttributs = this.printers.getPrintersAttributs()
+          this.canDisplayPage = true
+        })
+      }
     })
   }
 

@@ -1,5 +1,13 @@
 <div class="container">
-  <table class="table table-bordered" *ngIf="printer != null">
+  <div class="text-center" *ngIf="!canDisplayPage">
+    <img
+      src="assets/loading.svg"
+      alt="loading icon"
+      height="100px"
+      width="100px" />
+  </div>
+
+  <table class="table table-bordered" *ngIf="canDisplayPage">
     <tbody>
       <ng-container *ngFor="let s of sections">
         <tr>

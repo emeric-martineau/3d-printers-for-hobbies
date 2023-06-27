@@ -40,6 +40,8 @@ export class PrintTableComponent implements OnInit {
   selectedFilter = new FilterWithValue()
   // All filters selected
   currentFilterList: FilterWithValue[] = []
+  // To know if can display page
+  canDisplayPage = false
 
   page: number = 1
   printersPerPage: number = 10
@@ -146,6 +148,8 @@ export class PrintTableComponent implements OnInit {
 
           // Init filter field
           this.indexes.getAllKeysDescription().forEach((value, key) =>  this.filtersNameList.push(new Filter(key, value)))
+
+          this.canDisplayPage = true
         })
       }
     })
