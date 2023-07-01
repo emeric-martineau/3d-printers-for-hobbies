@@ -1,4 +1,7 @@
 // Return true if is Javascript object
+//
+// @param v (string) : object or other
+// @return boolean
 function isObject(v) {
   return typeof v === 'object' &&
         !Array.isArray(v) &&
@@ -6,12 +9,19 @@ function isObject(v) {
 }
 
 // Return true if is Javascript array
+//
+// @param v (string) : object or other
+// @return boolean
 function isArray(v) {
   return v !== null && Array.isArray(v)
 }
 
 
 // For one object, generate an array with key and value
+//
+// @param obj (object) : object
+// @param prefix (string - default value '') : prefix to add before key
+// @return string[]
 function keysValues(obj, prefix = '') {
   let keysList = []
 
@@ -27,6 +37,9 @@ function keysValues(obj, prefix = '') {
 }
 
 // List keys/values for object and sub-object
+//
+// @param keysToCheck (string[]) : list of key
+// @return string[]
 function listAllKeysValues(keysToCheck) {
   let keysList = []
 
@@ -45,7 +58,11 @@ function listAllKeysValues(keysToCheck) {
   return keysList
 }
 
-// Read value
+// Read value in object with path like 'key1.key2.key3'
+//
+// @param obj (object) : object to read
+// @param path (string) : path to read
+// @return object
 function pseudoJsonPath(obj, path) {
   path.split('.').forEach(key => {
     if (isObject(obj)) {
@@ -56,7 +73,13 @@ function pseudoJsonPath(obj, path) {
   return obj
 }
 
-// Add value in index if not null and flat array
+// Add value in index if value is not already in array
+// If value is null, nothing do
+// If value is a array, all items are insered (if not already in)
+//
+// @param index (string[]) : index to add value
+// @param value (string) : this value
+// @return string[]
 function addInIndex(index, value) {
   if (isArray(value)) {
     value.forEach(item => {
@@ -73,8 +96,12 @@ function addInIndex(index, value) {
   return index
 }
 
-// Generate indexes of each index.
-// return a map with key associate to array of distinct value
+// Generate indexes of each index
+// Return a map with key associate to array of distinct value
+//
+// @param indexes (string[]) : index contains list of read key
+// @param objectList (object[]) : list of object where read key
+// @return object
 function createIndexes(indexes, objectList) {
   let idx = {}
 
@@ -88,8 +115,12 @@ function createIndexes(indexes, objectList) {
   return idx
 }
 
-  // Generate link between index value and array position of data
-  // in objectList
+// Generate link between index value and array position of data
+// in objectList
+//
+// @param indexesValues (object) : data
+// @param objectList (object[]) : list of object
+// @return object
 function createIndexList(indexesValues, objectList) {
   let newIndex = {}
 

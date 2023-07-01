@@ -5,6 +5,9 @@ const YAML = require('yaml')
 const log = require('./log')
 
 // Parse a yaml file to json file
+// 
+// @param input (string)      : input filename
+// @return [string[], object] : [array of error, document]
 function parseDocument(input) {
     const inputStr = fs.readFileSync(input === '-' ? 0 : input, 'utf8')
     const options = { keepNodeTypes: true }
@@ -25,8 +28,11 @@ function parseDocument(input) {
     return [[], doc]
 }
 
-
-function generateFilesList(input) {
+// Generate file list of Yaml file
+//
+// @param input (string) : directory where list yaml file
+// @return string[]      : array of yaml filename
+function generateYamlFilesList(input) {
   log.info(`Generate list of file from ${input}`)
   let filesList = []
 
@@ -41,6 +47,10 @@ function generateFilesList(input) {
   return filesList
 }
 
+// Return filname without extension
+// 
+// @param filename (string) : the filename (e.g. 'like.jpg')
+// @return string           : (e.g. 'like')
 function filenameWithoutExt(filename) {
   const lastIndex = filename.lastIndexOf('.')
 
@@ -52,11 +62,16 @@ function filenameWithoutExt(filename) {
 // - manufacturer
 // - serie
 // - if image found
+//
+// @param folder (string)       : directory name
+// @param manufacturer (string) : manufacturer name
+// @param serie (string)        : printer serie (default '')
+// @return [boolean, object[]]  : [if error, array of json printer data]
 function readAllDoc(folder, manufacturer, serie = '') {
     log.info(`Convert all files from ${folder}`)
     let printersList = []
   
-    generateFilesList(folder).forEach(file => {
+    generateYamlFilesList(folder).forEach(file => {
       let [err, doc] = parseDocument(`${folder}${path.sep}${file}`)
   
       if (err.length > 0) {
@@ -82,6 +97,12 @@ function readAllDoc(folder, manufacturer, serie = '') {
     return [false, printersList]
 }
 
+// Save Json data into a file
+//
+// @param json (object)     : json data
+// @param filename (string) : filename where store data
+// @param prefix (string)   : prefix of data in file (default '')
+// @param suffix (string)   : suffix of data in file (default '')
 function saveJsonToFile(json, filename, prefix = '', suffix = '') {
   // Save printer list file
   try {

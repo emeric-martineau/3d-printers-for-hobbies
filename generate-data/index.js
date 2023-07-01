@@ -73,9 +73,17 @@ function main(input, assetsOutput) {
 
   generateManufacturerDescription(`${input}${path.sep}printers`, assetsOutput)
 
+  const filtersFilename = `${input}${path.sep}filters.yaml`
   // Generate file to display all information of printer
-  const printersAttributs = generatePagePrinterInfoIndex(`${input}${path.sep}filters.yaml`, assetsOutput)
-  saveJsonToFile(printersAttributs, `${generatePrintersOutputFolderName(assetsOutput)}printers-attributs.json`)  
+  const printersAttributs = generatePagePrinterInfoIndex(filtersFilename, assetsOutput)
+
+  if (printersAttributs[0] === true) {
+    log.error(`Cannot read file '${filtersFilename}'!`)
+    log.error(printersAttributs[1])
+    return 1
+  }
+
+  saveJsonToFile(printersAttributs[1], `${generatePrintersOutputFolderName(assetsOutput)}printers-attributs.json`)  
 
   return 0
 }
