@@ -46,28 +46,28 @@ function main(input, assetsOutput) {
     return 1
   }
 
-  const indexFolder = `${assetsOutput}/index`
+  const indexFolder = `${assetsOutput}${path.sep}index`
 
   createDir(indexFolder)
   createDir(generateManufacturersOutputFolderName(assetsOutput))
   createDir(generatePrintersOutputFolderName(assetsOutput))
 
   // Save printer list file
-  saveJsonToFile(printersList, `${generatePrintersOutputFolderName(assetsOutput)}/printers.json`)
+  saveJsonToFile(printersList, `${generatePrintersOutputFolderName(assetsOutput)}${path.sep}printers.json`)
   const idx = indexes.generateIndexesKeys(printersList[0])
 
   // Indexes with value
   const indexesValues = indexes.generateIndexesValues(idx, printersList)
-  saveJsonToFile(indexesValues, `${indexFolder}/indexes-values.json`)
+  saveJsonToFile(indexesValues, `${indexFolder}${path.sep}indexes-values.json`)
 
   // Keys of indexes and description
   const keysDescription = generateIndexKeysDescription(`${input}${path.sep}filters.yaml`, indexesValues)
-  saveJsonToFile(keysDescription, `${indexFolder}/indexes-keys-description.json`)
+  saveJsonToFile(keysDescription, `${indexFolder}${path.sep}indexes-keys-description.json`)
 
   const indexWithArrayIndex = indexes.generateIndexesLink(indexesValues, printersList)
   saveJsonToFile(indexWithArrayIndex, `${indexFolder}/indexes.json`)
 
-  saveJsonToFile(manufacturersList, `${generateManufacturersOutputFolderName(assetsOutput)}manufacturers.json`)
+  saveJsonToFile(manufacturersList, `${generateManufacturersOutputFolderName(assetsOutput)}${path.sep}manufacturers.json`)
   copyManufacturersLogo(`${input}${path.sep}printers`, assetsOutput, manufacturersList)
   copyPrintersImage(`${input}${path.sep}printers`, assetsOutput, manufacturersList)
 

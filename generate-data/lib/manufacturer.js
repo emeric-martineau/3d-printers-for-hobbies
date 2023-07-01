@@ -6,15 +6,15 @@ const showdown = require('showdown')
 const HtmlConverter = new showdown.Converter()
 
 function generateManufacturersOutputFolderName(basedir) {
-  return `${basedir}manufacturers/`
+  return `${basedir}manufacturers`
 }
 
 function generateManufacturersLogoOutputFolderName(basedir) {
-  return `${basedir}manufacturers/logo`
+  return `${basedir}manufacturers${path.sep}logo`
 }
 
 function generateManufacturersDescriptionsOutputFolderName(basedir) {
-  return `${basedir}manufacturers/description`
+  return `${basedir}manufacturers${path.sep}description`
 }
 
 function generateManufacturersList(input) {
@@ -23,7 +23,7 @@ function generateManufacturersList(input) {
     let manufacturersList = []
   
     fs.readdirSync(input).forEach(manufacturer => { 
-      if (fs.lstatSync(input + path.sep + manufacturer).isDirectory()) {
+      if (fs.lstatSync(`${input}${path.sep}${manufacturer}`).isDirectory()) {
         manufacturersList.push(manufacturer)
       }
     })
@@ -43,8 +43,8 @@ function copyManufacturersLogo(input, assetsOutput, manufacturersList) {
     }    
 
     manufacturersList.forEach(manufacturer => {
-        fs.copyFileSync(`${input}/${manufacturer}/logo.png`, `${imgOutput}/${manufacturer}.png`)
-        fs.copyFileSync(`${input}/${manufacturer}/logo_256x256.png`, `${imgOutput}/${manufacturer}_256x256.png`)
+        fs.copyFileSync(`${input}${path.sep}${manufacturer}${path.sep}logo.png`, `${imgOutput}${path.sep}${manufacturer}.png`)
+        fs.copyFileSync(`${input}${path.sep}${manufacturer}${path.sep}logo_256x256.png`, `${imgOutput}${path.sep}${manufacturer}_256x256.png`)
     })
 }
 
@@ -58,7 +58,7 @@ function generateManufacturerDescription(input, assetsOutput) {
   }
 
   manufacturersList.forEach(manufacturer => {
-    const summaryFilename = `${input}/${manufacturer}/summary.md`
+    const summaryFilename = `${input}${path.sep}${manufacturer}${path.sep}summary.md`
 
     if (fs.existsSync(summaryFilename)) {
       let content = fs.readFileSync(summaryFilename, { encoding: 'utf8' })
@@ -66,7 +66,7 @@ function generateManufacturerDescription(input, assetsOutput) {
       content = `![${manufacturer}](${imgOutput}/${manufacturer}.png)\n\n${content}`
 
       const data = HtmlConverter.makeHtml(content)
-      fs.writeFileSync(`${descOutput}/${manufacturer}.html`, data, { encoding: 'utf8' })
+      fs.writeFileSync(`${descOutput}${path.sep}${manufacturer}.html`, data, { encoding: 'utf8' })
     }
   })
 }

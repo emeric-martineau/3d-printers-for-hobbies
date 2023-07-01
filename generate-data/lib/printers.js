@@ -53,10 +53,10 @@ function generatePrintersList(input, manufacturersList) {
     let printersList = []
   
     manufacturersList.forEach(manufacturer => {
-      let currentPath = input + path.sep + manufacturer
+      let currentPath = `${input}${path.sep}${manufacturer}`
   
       generateSeriesPrintersList(currentPath).forEach(serie => {
-        let currentSeriePath = currentPath + path.sep + serie
+        let currentSeriePath = `${currentPath}${path.sep}${serie}`
   
         let [err, docs] = readAllDoc(currentSeriePath, manufacturer, serie)
   

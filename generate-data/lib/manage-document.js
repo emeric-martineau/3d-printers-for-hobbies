@@ -31,7 +31,7 @@ function generateFilesList(input) {
   let filesList = []
 
   fs.readdirSync(input).forEach(f => {
-    if (fs.lstatSync(input + path.sep + f).isFile() && f.split('.').pop() === 'yaml') {
+    if (fs.lstatSync(`${input}${path.sep}${f}`).isFile() && f.split('.').pop() === 'yaml') {
       filesList.push(f)
     }
   })
@@ -57,7 +57,7 @@ function readAllDoc(folder, manufacturer, serie = '') {
     let printersList = []
   
     generateFilesList(folder).forEach(file => {
-      let [err, doc] = parseDocument(folder + path.sep + file)
+      let [err, doc] = parseDocument(`${folder}${path.sep}${file}`)
   
       if (err.length > 0) {
         return [true, []]
@@ -85,7 +85,7 @@ function readAllDoc(folder, manufacturer, serie = '') {
 function saveJsonToFile(json, filename, prefix = '', suffix = '') {
   // Save printer list file
   try {
-    fs.writeFileSync(filename, prefix + JSON.stringify(json) + suffix)
+    fs.writeFileSync(filename, `${prefix}${JSON.stringify(json)}${suffix}`)
     // file written successfully
   } catch (err) {
     log.error(err)
