@@ -33,8 +33,7 @@ function generateManufacturersList(input) {
     return manufacturersList
 }
 
-function copyManufacturersLogo(input, assetsOutput) {
-    const manufacturersList = generateManufacturersList(input)
+function copyManufacturersLogo(input, assetsOutput, manufacturersList) {
     const imgOutput = generateManufacturersLogoOutputFolderName(assetsOutput)
 
     log.info('Copy manufacturer logo')

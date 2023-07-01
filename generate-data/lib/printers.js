@@ -2,7 +2,6 @@ const fs = require('fs')
 const path = require('path')
 const log = require('./log')
 const { readAllDoc, parseDocument } = require('./manage-document')
-const { generateManufacturersList } = require('./manufacturer')
 
 function generateSeriesPrintersList(input) {
     log.info(`Generate printer's serie list form ${input}`)
@@ -49,11 +48,11 @@ function generateSeriesPrintersList(input) {
     return seriesList
 }
 
-function generatePrintersList(input) { 
+function generatePrintersList(input, manufacturersList) { 
     log.info(`Generate global printers list form ${input}`)
     let printersList = []
   
-    generateManufacturersList(input).forEach(manufacturer => {
+    manufacturersList.forEach(manufacturer => {
       let currentPath = input + path.sep + manufacturer
   
       generateSeriesPrintersList(currentPath).forEach(serie => {
@@ -95,11 +94,43 @@ function generatePagePrinterInfoIndex(filename) {
 }
 
 function generatePrintersOutputFolderName(basedir) {
-  return `${basedir}printers/`
+  return `${basedir}printers${path.sep}`
+}
+
+function generatePrintersImageOutputFolderName(basedir) {
+  return `${generatePrintersOutputFolderName(basedir)}images${path.sep}`
+}
+
+function copyPrintersImage(input, assetsOutput, manufacturersList) {
+  const imgOutput = generatePrintersImageOutputFolderName(assetsOutput)
+
+  log.info('Copy printers images')
+
+  if (!fs.existsSync(imgOutput)) {
+      fs.mkdirSync(imgOutput, { recursive: true });
+  }    
+
+  manufacturersList.forEach(manufacturer => {
+    let currentPath = `${input}${path.sep}${manufacturer}`
+
+    generateSeriesPrintersList(currentPath).forEach(serie => {
+      let imagePath = `${currentPath}${path.sep}${serie}${path.sep}img`
+
+      if (fs.existsSync(imagePath) && fs.lstatSync(imagePath).isDirectory()) {
+        fs.readdirSync(imagePath).forEach(imageFilename => {
+          if (fs.lstatSync(`${imagePath}${path.sep}${imageFilename}`).isFile()) {
+            log.info(`Copy ${imagePath}${path.sep}${imageFilename} to ${imgOutput}${path.sep}${imageFilename}`)
+            fs.copyFileSync(`${imagePath}${path.sep}${imageFilename}`, `${imgOutput}${path.sep}${imageFilename}`)
+          }
+        })
+      }
+    })
+  })
 }
 
 module.exports = {
   generatePrintersList,
   generatePagePrinterInfoIndex,
-  generatePrintersOutputFolderName
+  generatePrintersOutputFolderName,
+  copyPrintersImage
 }

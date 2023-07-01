@@ -1,10 +1,17 @@
 <div class="container">
-  <div class="text-center" *ngIf="!canDisplayPage">
+  <div class="text-center" >
     <img
+      *ngIf="!canDisplayPage"
       src="assets/loading.svg"
       alt="loading icon"
       height="100px"
       width="100px" />
+
+      <img
+        *ngIf="canDisplayPage && printer.printer.image != null"
+        src="assets/printers/images/{{ printer.printer.image }}"
+        alt="printer image"
+        class="printer-logo" />
   </div>
 
   <table class="table table-bordered" *ngIf="canDisplayPage">

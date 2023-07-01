@@ -11,7 +11,8 @@ const {
 const {
   generatePrintersList,
   generatePagePrinterInfoIndex,
-  generatePrintersOutputFolderName
+  generatePrintersOutputFolderName,
+  copyPrintersImage
 } = require('./lib/printers')
 const {
   generateManufacturersList,
@@ -38,7 +39,8 @@ function generateIndexKeysDescription(filename, indexesValues) {
 }
 
 function main(input, assetsOutput) {
-  const [err, printersList] = generatePrintersList(`${input}${path.sep}printers`)
+  const manufacturersList = generateManufacturersList(`${input}${path.sep}printers`)
+  const [err, printersList] = generatePrintersList(`${input}${path.sep}printers`, manufacturersList)
 
   if (err) {
     return 1
@@ -65,9 +67,9 @@ function main(input, assetsOutput) {
   const indexWithArrayIndex = indexes.generateIndexesLink(indexesValues, printersList)
   saveJsonToFile(indexWithArrayIndex, `${indexFolder}/indexes.json`)
 
-  const manufacturersList = generateManufacturersList(`${input}${path.sep}printers`)
   saveJsonToFile(manufacturersList, `${generateManufacturersOutputFolderName(assetsOutput)}manufacturers.json`)
-  copyManufacturersLogo(`${input}${path.sep}printers`, assetsOutput)
+  copyManufacturersLogo(`${input}${path.sep}printers`, assetsOutput, manufacturersList)
+  copyPrintersImage(`${input}${path.sep}printers`, assetsOutput, manufacturersList)
 
   generateManufacturerDescription(`${input}${path.sep}printers`, assetsOutput)
 

@@ -14,7 +14,7 @@ printer:
   closed: false
   
 print:
-  volume: 220x220x270
+  volume: 300x300x300
   speed: 150
   precision:
     x: 0.1

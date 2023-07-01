@@ -41,6 +41,17 @@ function generateFilesList(input) {
   return filesList
 }
 
+function filenameWithoutExt(filename) {
+  const lastIndex = filename.lastIndexOf('.')
+
+  return filename.slice(0, lastIndex)
+}
+
+// Read all printers.
+// Add for each printer :
+// - manufacturer
+// - serie
+// - if image found
 function readAllDoc(folder, manufacturer, serie = '') {
     log.info(`Convert all files from ${folder}`)
     let printersList = []
@@ -56,6 +67,11 @@ function readAllDoc(folder, manufacturer, serie = '') {
   
       jsonDoc.printer.manufacturer = manufacturer
       jsonDoc.printer.serie = serie
+      if (fs.existsSync(`${folder}${path.sep}img${path.sep}${filenameWithoutExt(file)}.jpg`)) {
+        jsonDoc.printer.image = `${filenameWithoutExt(file)}.jpg`
+      } else {
+        jsonDoc.printer.image = null
+      }
   
       //console.log(JSON.stringify(jsonDoc))
       printersList.push(jsonDoc)
