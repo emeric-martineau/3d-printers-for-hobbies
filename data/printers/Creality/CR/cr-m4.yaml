@@ -1,0 +1,65 @@
+---
+printer:
+  name: CR M4
+  noise: 58
+  size: 655x700x865
+  power: 800
+  voltage:
+    - 230
+    - 115
+  weight: 22.48
+  type: cartesian
+  release_year: 2023
+  price: 1099
+  closed: false
+  
+print:
+  volume: 450x450x470
+  speed: 120
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: flexible magnetic
+    max_temperature: 100
+  layer_resolution: 0.1
+
+screen:
+  size: 93x87
+  resolution: 320x480
+  type: LCD 4.3-inch Touch Screen Display
+  color: true
+
+nozzle:
+  number: 1
+  max_temperature: 300
+  diameter: 0.4
+  extruder_type: direct drive
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - PA
+    - PLA-WOOD
+    - PLA-CF
+    - ABS
+    - TPU
+    - PETG
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: CR touch
+  runout_sensor: false
+  supported_file_format:
+    - obj
+    - gcode
+    - amf
+  resume_printing: true
+  print_method:
+    - MicroSD
+    - USB
+    - RJ45
+    - WiFi
+  double_z: true

@@ -1,0 +1,59 @@
+---
+printer:
+  name: CR 30
+  noise: 58
+  size: 535x656x410
+  power: 350
+  voltage:
+    - 230
+    - 115
+  weight: 16.5
+  type: core_xy
+  release_year: 2020
+  price: 950
+  closed: false
+  
+print:
+  volume: 200x170x***
+  speed: 180
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: conveyor belt
+    max_temperature: 100
+  layer_resolution: 0.1
+
+screen:
+  size: 80x50
+  resolution: 128*64
+  type: matrix-dot
+  color: false
+
+nozzle:
+  number: 1
+  max_temperature: 240
+  diameter: 0.4
+  extruder_type: bowden
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - TPU
+    - PETG
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: manual
+  runout_sensor: false
+  supported_file_format:
+    - obj
+    - gcode
+    - amf
+  resume_printing: true
+  print_method:
+    - MicroSD
+    - USB
+  double_z: true
