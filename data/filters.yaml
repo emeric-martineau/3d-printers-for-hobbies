@@ -89,6 +89,8 @@ other:
     filter: true
   supported_file_format:
     text: File format
+  double_z:
+    text: Dual Z-Axis
 
 screen:
   size:

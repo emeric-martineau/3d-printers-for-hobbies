@@ -1,38 +1,38 @@
 ---
 printer:
-  name: Ender 3 Pro
+  name: Ender 5 Plus
   noise: 58
-  size: 440x410x465
-  power: 270
+  size: 632x666x619
+  power: 550
   voltage:
     - 230
     - 115
-  weight: 6.62
+  weight: 18.2
   type: cartesian
-  release_year: 2018
-  price: 220
+  release_year: 2019
+  price: 580
   closed: false
   
 print:
-  volume: 220x220x250
+  volume: 350x350x400
   speed: 180
   precision:
     x: 0.1
     y: 0.1
   bed:
     surface: flexible magnetic
-    max_temperature: 100
+    max_temperature: 110
   layer_resolution: 0.1
 
 screen:
-  size: 80x50
-  resolution: 128*64
-  type: matrix-dot
-  color: false
+  size: 93x87
+  resolution: 320x480
+  type: LCD 4.3-inch Touch Screen Display
+  color: true
 
 nozzle:
   number: 1
-  max_temperature: 255
+  max_temperature: 260
   diameter: 0.4
   extruder_type: bowden
 
@@ -44,7 +44,7 @@ filament:
     - TPU
 
 other:
-  motherboard: 8
+  motherboard: 32
   firmware: marlin
   bed_leveling: manual
   runout_sensor: false
@@ -55,4 +55,4 @@ other:
   print_method:
     - MicroSD
     - USB
-  double_z: false
+  double_z: true

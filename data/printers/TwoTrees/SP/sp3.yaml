@@ -57,3 +57,4 @@ other:
   print_method:
     - MicroSD
     - USB
+  double_z: false

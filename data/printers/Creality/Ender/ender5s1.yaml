@@ -1,40 +1,40 @@
 ---
 printer:
-  name: Ender 3 Pro
+  name: Ender 5 S1
   noise: 58
-  size: 440x410x465
-  power: 270
+  size: 425x460x570
+  power: 350
   voltage:
     - 230
     - 115
-  weight: 6.62
+  weight: 21.1
   type: cartesian
-  release_year: 2018
-  price: 220
+  release_year: 2022
+  price: 580
   closed: false
   
 print:
-  volume: 220x220x250
-  speed: 180
+  volume: 220x220x280
+  speed: 250
   precision:
     x: 0.1
     y: 0.1
   bed:
     surface: flexible magnetic
-    max_temperature: 100
+    max_temperature: 110
   layer_resolution: 0.1
 
 screen:
-  size: 80x50
-  resolution: 128*64
-  type: matrix-dot
-  color: false
+  size: 93x87
+  resolution: 320x480
+  type: LCD 4.3-inch Touch Screen Display
+  color: true
 
 nozzle:
   number: 1
-  max_temperature: 255
+  max_temperature: 300
   diameter: 0.4
-  extruder_type: bowden
+  extruder_type: direct drive
 
 filament:
   diameter: 1.75
@@ -42,16 +42,18 @@ filament:
     - PLA
     - ABS
     - TPU
+    - PETG
 
 other:
-  motherboard: 8
+  motherboard: 32
   firmware: marlin
-  bed_leveling: manual
-  runout_sensor: false
+  bed_leveling: CR touch
+  runout_sensor: true
   supported_file_format:
     - obj
     - gcode
-  resume_printing: false
+    - amf
+  resume_printing: true
   print_method:
     - MicroSD
     - USB
