@@ -1,0 +1,59 @@
+---
+printer:
+  name: Sermoon V1
+  noise: 58
+  size: 400x380x430
+  power: 150
+  voltage:
+    - 230
+    - 115
+  weight: 11.5
+  type: cartesian
+  release_year: 2022
+  price: 380
+  closed: true
+  
+print:
+  volume: 175x175x165
+  speed: 100
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: flexible magnetic
+    max_temperature: 80
+  layer_resolution: 0.1
+
+screen:
+  size: 93x87
+  resolution: 320x480
+  type: LCD 4.3-inch Touch Screen Display
+  color: true
+
+nozzle:
+  number: 1
+  max_temperature: 250
+  diameter: 0.4
+  extruder_type: direct drive
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - ABS
+    - TPU
+    - PETG
+
+other:
+  motherboard: 32
+  firmware: dedicated
+  bed_leveling: manual
+  runout_sensor: true
+  supported_file_format:
+    - obj
+    - gcode
+    - amf
+  resume_printing: true
+  print_method:
+    - MicroSD
+    - WiFi
+  double_z: false

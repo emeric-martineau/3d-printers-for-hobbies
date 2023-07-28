@@ -1,0 +1,58 @@
+---
+printer:
+  name: Sermoon D1
+  noise: 58
+  size: 500x500x531
+  power: 350
+  voltage:
+    - 230
+    - 115
+  weight: 25.5
+  type: core_xy
+  release_year: 2021
+  price: 750
+  closed: true
+  
+print:
+  volume: 280x260x310
+  speed: 50
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: glass
+    max_temperature: 100
+  layer_resolution: 0.1
+
+screen:
+  size: 93x87
+  resolution: 320x480
+  type: LCD 4.3-inch Touch Screen Display
+  color: true
+
+nozzle:
+  number: 1
+  max_temperature: 260
+  diameter: 0.4
+  extruder_type: direct drive
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - ABS
+    - TPU
+
+other:
+  motherboard: 32
+  firmware: dedicated
+  bed_leveling: manual
+  runout_sensor: true
+  supported_file_format:
+    - obj
+    - gcode
+    - amf
+  resume_printing: true
+  print_method:
+    - MicroSD
+    - USB
+  double_z: true
