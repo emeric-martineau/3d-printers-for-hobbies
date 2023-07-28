@@ -1,0 +1,57 @@
+---
+printer:
+  name: CR 200B
+  noise: 58
+  size: 411x435x503
+  power: 360
+  voltage:
+    - 230
+    - 115
+  weight: 16
+  type: core_xy
+  release_year: 2021
+  price: 500
+  closed: true
+  
+print:
+  volume: 200x200x200
+  speed: 100
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: flexible magnetic
+    max_temperature: 100
+  layer_resolution: 0.1
+
+screen:
+  size: 93x87
+  resolution: 320x480
+  type: LCD 4.3-inch Touch Screen Display
+  color: true
+
+nozzle:
+  number: 1
+  max_temperature: 250
+  diameter: 0.4
+  extruder_type: bowden
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - ABS
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: Semi-automatic 
+  runout_sensor: true
+  supported_file_format:
+    - obj
+    - gcode
+    - amf
+  resume_printing: true
+  print_method:
+    - MicroSD
+    - USB
+  double_z: false

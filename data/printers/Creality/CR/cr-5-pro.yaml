@@ -1,0 +1,57 @@
+---
+printer:
+  name: CR 5 Pro
+  noise: 58
+  size: 530x487x612
+  power: 350
+  voltage:
+    - 230
+    - 115
+  weight: 32.5
+  type: cartesian
+  release_year: 2020
+  price: 890
+  closed: true
+  
+print:
+  volume: 300x225x380
+  speed: 100
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: glass
+    max_temperature: 100
+  layer_resolution: 0.1
+
+screen:
+  size: 93x87
+  resolution: 320x480
+  type: LCD 4.3-inch Touch Screen Display
+  color: true
+
+nozzle:
+  number: 1
+  max_temperature: 260
+  diameter: 0.4
+  extruder_type: bowden
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - ABS
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: BL touch
+  runout_sensor: true
+  supported_file_format:
+    - obj
+    - gcode
+    - amf
+  resume_printing: true
+  print_method:
+    - MicroSD
+    - USB
+  double_z: false
