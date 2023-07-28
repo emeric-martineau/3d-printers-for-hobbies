@@ -1,0 +1,66 @@
+---
+printer:
+  name: K1
+  noise: 58
+  size: 355x355x480
+  power: 350
+  voltage:
+    - 230
+    - 115
+  weight: 12.5
+  type: core_xy
+  release_year: 2021
+  price: 600
+  closed: true
+  
+print:
+  volume: 220x220x250
+  speed: 600
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: flexible magnetic
+    max_temperature: 100
+  layer_resolution: 0.1
+
+screen:
+  size: 93x87
+  resolution: 320x480
+  type: LCD 4.3-inch Touch Screen Display
+  color: true
+
+nozzle:
+  number: 1
+  max_temperature: 300
+  diameter: 0.4
+  extruder_type: direct drive
+filament:
+  diameter: 1.75
+  type:
+      - ABS
+      - PLA
+      - PETG
+      - PET
+      - TPU
+      - PA
+      - ASA
+      - PC
+      - PLA-CF
+      - PA-CF
+      - PET-CF
+
+other:
+  motherboard: 32
+  firmware: CrealityOS
+  bed_leveling: free
+  runout_sensor: true
+  supported_file_format:
+    - obj
+    - gcode
+    - amf
+  resume_printing: true
+  print_method:
+    - WiFi
+    - USB
+  double_z: true
