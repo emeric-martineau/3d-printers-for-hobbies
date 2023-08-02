@@ -5,6 +5,7 @@ import { Filter, FilterWithValue } from '@shared/filters'
 
 const TABLE_COLUMNS = [
   "printer.name",
+  "printer.manufacturer",
   "print.volume",
   "printer.type",
   "printer.closed",
@@ -60,9 +61,11 @@ export class PrintTableComponent implements OnInit {
     // Now filter the printers list
     // For each key (e.g. "printer.name"), for each value of this key (e.g. "Ender 3", "BLU-5") get list of index
     let allIndex = new Map<string, number[]>()
+
     this.currentFilterList.forEach(item => {
       let data: number[] = []
 
+      // Get item index of each printer
       item.values.forEach(value => {
         data = data.concat(this.indexes.getPrintersListForOneKeyValue(item.key, value))
       })
@@ -70,10 +73,13 @@ export class PrintTableComponent implements OnInit {
       allIndex.set(item.key, data)
     })
 
-    // Search first filter was set
+    // Search first filter was set.
+    // Filter must be present in TABLE_COLUMNS.
     const firstKey = TABLE_COLUMNS.find(key => allIndex.get(key) !== undefined)
 
-    if (firstKey !== undefined) {
+    if (firstKey === undefined) {
+      this.initPrinterList()
+    } else {
       let newIndex = allIndex.get(firstKey) || []
 
       // Search union of all filter
@@ -84,8 +90,6 @@ export class PrintTableComponent implements OnInit {
       newIndex.sort((a, b) => a - b)
 
       this.printersIndexList = newIndex
-    } else {
-      this.initPrinterList()
     }
   }
 

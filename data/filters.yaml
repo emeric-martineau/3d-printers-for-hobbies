@@ -21,6 +21,9 @@ printer:
   closed:
     text: Is closed
     filter: true
+  manufacturer:
+    text: Manufacturer
+    filter: true
   power:
     text: Power
   voltage:
