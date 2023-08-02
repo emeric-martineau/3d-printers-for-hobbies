@@ -12,7 +12,7 @@ function generateSeriesPrintersList(input) {
     let seriesList = []
   
     fs.readdirSync(input).forEach(serie => {
-      if (fs.lstatSync(input + path.sep + serie).isDirectory()) {
+      if (fs.lstatSync(input + path.sep + serie).isDirectory() && serie !== 'img') {
         seriesList.push(serie)
       }
     })
@@ -34,27 +34,30 @@ function generatePrintersList(input, manufacturersList) {
   
     manufacturersList.forEach(manufacturer => {
       let currentPath = `${input}${path.sep}${manufacturer}`
+
+      let printerList = generateSeriesPrintersList(currentPath)
   
-      generateSeriesPrintersList(currentPath).forEach(serie => {
-        let currentSeriePath = `${currentPath}${path.sep}${serie}`
-  
-        let [err, docs] = readAllDoc(currentSeriePath, manufacturer, serie)
-  
+      if (printerList.length == 0) {
+        let [err, docs] = readAllDoc(currentPath, manufacturer)
+    
         if (err) {
           return [true, []]
         }
   
         printersList = printersList.concat(docs)
-  
-      })
-  
-      let [err, docs] = readAllDoc(currentPath, manufacturer)
-  
-      if (err) {
-        return [true, []]
+      } else {
+        printerList.forEach(serie => {
+          let currentSeriePath = `${currentPath}${path.sep}${serie}`
+    
+          let [err, docs] = readAllDoc(currentSeriePath, manufacturer, serie)
+    
+          if (err) {
+            return [true, []]
+          }
+    
+          printersList = printersList.concat(docs)
+        })
       }
-  
-      printersList = printersList.concat(docs)
     })
   
     log.info(`Global printers list as ${printersList.length} elements`)
@@ -94,6 +97,21 @@ function generatePrintersImageOutputFolderName(basedir) {
   return `${generatePrintersOutputFolderName(basedir)}images${path.sep}`
 }
 
+// Copy all images from a directory
+//
+// @param imagePath (string) : folder where images are stored
+// @param imgOutput (string) : folder where we copy images
+function copySubPrintersImage(imagePath, imgOutput) {
+  if (fs.existsSync(imagePath) && fs.lstatSync(imagePath).isDirectory()) {
+    fs.readdirSync(imagePath).forEach(imageFilename => {
+      if (fs.lstatSync(`${imagePath}${path.sep}${imageFilename}`).isFile()) {
+        log.info(`Copy ${imagePath}${path.sep}${imageFilename} to ${imgOutput}${imageFilename}`)
+        fs.copyFileSync(`${imagePath}${path.sep}${imageFilename}`, `${imgOutput}${imageFilename}`)
+      }
+    })
+  }
+}
+
 // Copy all images of printers in asset folder
 //
 // @param input (string) : printers input root folder
@@ -111,19 +129,15 @@ function copyPrintersImage(input, assetsOutput, manufacturersList) {
 
   manufacturersList.forEach(manufacturer => {
     let currentPath = `${input}${path.sep}${manufacturer}`
+    let printerList = generateSeriesPrintersList(currentPath)
 
-    generateSeriesPrintersList(currentPath).forEach(serie => {
-      let imagePath = `${currentPath}${path.sep}${serie}${path.sep}img`
-
-      if (fs.existsSync(imagePath) && fs.lstatSync(imagePath).isDirectory()) {
-        fs.readdirSync(imagePath).forEach(imageFilename => {
-          if (fs.lstatSync(`${imagePath}${path.sep}${imageFilename}`).isFile()) {
-            log.info(`Copy ${imagePath}${path.sep}${imageFilename} to ${imgOutput}${imageFilename}`)
-            fs.copyFileSync(`${imagePath}${path.sep}${imageFilename}`, `${imgOutput}${imageFilename}`)
-          }
-        })
-      }
-    })
+    if (printerList.length == 0) {
+      copySubPrintersImage(`${currentPath}${path.sep}img`, imgOutput)
+    } else {
+      printerList.forEach(serie => {
+        copySubPrintersImage(`${currentPath}${path.sep}${serie}${path.sep}img`, imgOutput)
+      })
+    }
   })
 }
 
