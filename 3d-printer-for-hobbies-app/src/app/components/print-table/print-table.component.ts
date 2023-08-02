@@ -141,19 +141,22 @@ export class PrintTableComponent implements OnInit {
     this.indexes.getReady().subscribe(isIndexReady => {
       if (isIndexReady) {
         this.printers.getReady().subscribe(isPrintersReady => {
-          this.initPrinterList()
+          if (isPrintersReady) {
+            this.initPrinterList()
 
-          // Init table header with label
-          TABLE_COLUMNS.forEach(key => {
-            this.tableHeader.push(
-              new TableHeader(key, this.indexes.getKeyDescription(key))
-            )
-          })
+            // Init table header with label
+            TABLE_COLUMNS.forEach(key => {
+              this.tableHeader.push(
+                new TableHeader(key, this.indexes.getKeyDescription(key))
+              )
+            })
 
-          // Init filter field
-          this.indexes.getAllKeysDescription().forEach((value, key) =>  this.filtersNameList.push(new Filter(key, value)))
-
-          this.canDisplayPage = true
+            // Init filter field
+            this.indexes.getAllKeysDescription().forEach((value, key) =>  this.filtersNameList.push(new Filter(key, value)))
+            // sort filter list
+            this.filtersNameList.sort((a, b) => a.text.localeCompare(b.text))
+            this.canDisplayPage = true
+          }
         })
       }
     })
@@ -199,7 +202,7 @@ export class PrintTableComponent implements OnInit {
   onSelectedFilterName(filterName: string, filterText: string) {
     this.selectedFilter.key = filterName
     this.selectedFilter.text = filterText
-    this.selectedFilter.values = this.indexes.getValuesOfIndexAsString(filterName)
+    this.selectedFilter.values = this.indexes.getValuesOfIndexAsString(filterName).sort((a, b) => a.localeCompare(b))
   }
 
   onSelectedFilterValue(filter: FilterWithValue, value: string) {
@@ -208,6 +211,8 @@ export class PrintTableComponent implements OnInit {
     if (item === undefined) {
       // At first time, filter is not present, so add it
       this.currentFilterList.push(new FilterWithValue(filter.key, filter.text, [value]))
+      // and sort array
+      this.currentFilterList.sort((a, b) => a.text.localeCompare(b.text))
     } else if (item.values.includes(value)) {
       // This value of filter is selected, so remove it
       const index = item.values.indexOf(value)
