@@ -1,0 +1,56 @@
+---
+printer:
+  name: Neva Magis
+  noise: 58
+  size: 305x275x535
+  power: 400
+  voltage:
+    - 230
+    - 115
+  weight: 4.3
+  type: delta
+  release_year: 2022
+  price: 450
+  closed: false
+  
+print:
+  volume: 180x180x200
+  speed: 100
+  precision:
+    x: 0.05
+    y: 0.01
+  bed:
+    surface: flexible magnetic
+    max_temperature: 0
+  layer_resolution: 0.1
+
+screen:
+  size:
+  resolution:
+  type:
+  color:
+
+nozzle:
+  number: 1
+  max_temperature: 270
+  diameter: 0.4
+  extruder_type: bowden
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - TPU
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: automatic
+  runout_sensor: true
+  supported_file_format:
+    - gcode
+  resume_printing: true
+  print_method:
+    - MicroSD
+    - USB
+  double_z: false

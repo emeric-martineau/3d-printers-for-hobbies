@@ -1,0 +1,56 @@
+---
+printer:
+  name: Disco Ultimate V2
+  noise: 58
+  size: 370x370x370
+  power: 60
+  voltage:
+    - 230
+    - 115
+  weight: 5
+  type: cartesian
+  release_year: 2022
+  price: 350
+  closed: false
+  
+print:
+  volume: 200x200x200
+  speed: 150
+  precision:
+    x: 0.05
+    y: 0.01
+  bed:
+    surface: flexible magnetic
+    max_temperature: 0
+  layer_resolution: 0.1
+
+screen:
+  size: 80x50
+  resolution: 128*64
+  type: matrix-dot
+  color: false
+
+nozzle:
+  number: 1
+  max_temperature: 280
+  diameter: 0.4
+  extruder_type: bowden
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - TPU
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: manual
+  runout_sensor: true
+  supported_file_format:
+    - gcode
+  resume_printing: true
+  print_method:
+    - MicroSD
+    - USB
+  double_z: true
