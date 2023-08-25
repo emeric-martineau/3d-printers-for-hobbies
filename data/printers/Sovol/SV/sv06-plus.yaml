@@ -1,0 +1,58 @@
+---
+printer:
+  name: SV06 Plus
+  noise: 
+  size: 538x488x707
+  power: 350
+  voltage:
+    - 230
+    - 115
+  weight: 14
+  type: cartesian
+  release_year: 2023
+  price: 330
+  closed: false
+  
+print:
+  volume: 300x300x340
+  speed: 150
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: flexible magnetic
+    max_temperature: 100
+  layer_resolution: 0.1
+
+screen:
+  size:
+  resolution: 320x480
+  type: LCD 4.3-inch Touch Screen Display
+  color: true
+
+nozzle:
+  number: 1
+  max_temperature: 300
+  diameter: 0.4
+  extruder_type: direct drive
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - ABS
+    - TPU
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: auto
+  runout_sensor: true
+  supported_file_format:
+    - obj
+    - gcode
+  resume_printing: true
+  print_method:
+    - MicroSD
+    - USB
+  double_z: true

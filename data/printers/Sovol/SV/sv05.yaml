@@ -1,0 +1,58 @@
+---
+printer:
+  name: SV08
+  noise: 
+  size: 683x531x535
+  power: 350
+  voltage:
+    - 230
+    - 115
+  weight: 18.2
+  type: cartesian
+  release_year: 2022
+  price: 240
+  closed: false
+  
+print:
+  volume: 220x220x300
+  speed: 80
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: flexible magnetic
+    max_temperature: 110
+  layer_resolution: 0.1
+
+screen:
+  size: 80x50
+  resolution: 128*64
+  type: matrix-dot
+  color: false
+
+nozzle:
+  number: 1
+  max_temperature: 260
+  diameter: 0.4
+  extruder_type: direct drive
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - ABS
+    - TPU
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: CR Touch
+  runout_sensor: true
+  supported_file_format:
+    - obj
+    - gcode
+  resume_printing: true
+  print_method:
+    - MicroSD
+    - USB
+  double_z: false

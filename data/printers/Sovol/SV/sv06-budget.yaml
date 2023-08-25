@@ -1,0 +1,58 @@
+---
+printer:
+  name: SV06 Budget
+  noise: 
+  size: 497x388x611
+  power: 200
+  voltage:
+    - 230
+    - 115
+  weight: 9
+  type: cartesian
+  release_year: 2022
+  price: 220
+  closed: false
+  
+print:
+  volume: 220x220x250
+  speed: 180
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: flexible magnetic
+    max_temperature: 100
+  layer_resolution: 0.1
+
+screen:
+  size: 80x50
+  resolution: 128*64
+  type: matrix-dot
+  color: false
+
+nozzle:
+  number: 1
+  max_temperature: 260
+  diameter: 0.4
+  extruder_type: direct drive
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - ABS
+    - TPU
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: auto
+  runout_sensor: false
+  supported_file_format:
+    - obj
+    - gcode
+  resume_printing: false
+  print_method:
+    - MicroSD
+    - USB
+  double_z: true
