@@ -1,0 +1,58 @@
+---
+printer:
+  name: Korba Plus
+  noise: 58
+  size: 486x440x435
+  power: 330
+  voltage:
+    - 230
+    - 115
+  weight: 11
+  type: cartesian
+  release_year: 2023
+  price: 300
+  closed: false
+  
+print:
+  volume: 350x300x300
+  speed: 180
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: flexible magnetic
+    max_temperature: 100
+  layer_resolution: 0.1
+
+screen:
+  size: 93x87
+  resolution: 320x480
+  type: LCD 4.3-inch touch
+  color: true
+
+nozzle:
+  number: 1
+  max_temperature: 260
+  diameter: 0.4
+  extruder_type: bowden
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - ABS
+    - TPU
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: auto
+  runout_sensor: true
+  supported_file_format:
+    - obj
+    - gcode
+  resume_printing: true
+  print_method:
+    - MicroSD
+    - USB
+  double_z: true
