@@ -1,0 +1,56 @@
+---
+printer:
+  name: A8 Plus
+  noise: 
+  size: 612x462x573
+  power: 360
+  voltage:
+    - 230
+    - 115
+  weight: 10
+  type: cartesian
+  release_year: 2019
+  price: 220
+  closed: false
+  
+print:
+  volume: 300x300x350
+  speed: 120
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: glass
+    max_temperature: 100
+  layer_resolution: 0.1
+
+screen:
+  size: 66x33
+  resolution: 128x64
+  type: LCD 
+  color: false
+
+nozzle:
+  number: 1
+  max_temperature: 250
+  diameter: 0.4
+  extruder_type: direct drive
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: manual
+  runout_sensor: false
+  supported_file_format:
+    - obj
+    - gcode
+  resume_printing: false
+  print_method:
+    - MicroSD
+    - USB
+  double_z: true

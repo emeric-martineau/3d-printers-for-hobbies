@@ -1,0 +1,57 @@
+---
+printer:
+  name: ET5-X
+  noise: 
+  size: 540x520x640
+  power: 360
+  voltage:
+    - 230
+    - 115
+  weight: 9.7
+  type: cartesian
+  release_year: 2020
+  price: 400
+  closed: false
+  
+print:
+  volume: 300x300x400
+  speed: 150
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: glass
+    max_temperature: 100
+  layer_resolution: 0.1
+
+screen:
+  size: 
+  resolution: 
+  type: LCD 3.5-inch Touch Screen Display
+  color: true
+
+nozzle:
+  number: 1
+  max_temperature: 250
+  diameter: 0.4
+  extruder_type: bowden
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - ABS
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: ABL
+  runout_sensor: true
+  supported_file_format:
+    - obj
+    - gcode
+  resume_printing: true
+  print_method:
+    - MicroSD
+    - USB
+  double_z: true

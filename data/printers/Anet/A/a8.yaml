@@ -1,0 +1,56 @@
+---
+printer:
+  name: A8
+  noise: 
+  size: 500x400x450
+  power: 250
+  voltage:
+    - 230
+    - 115
+  weight: 7.2
+  type: cartesian
+  release_year: 2017
+  price: 180
+  closed: false
+  
+print:
+  volume: 220x220x240
+  speed: 120
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: none
+    max_temperature: 100
+  layer_resolution: 0.1
+
+screen:
+  size: 84x31
+  resolution: 
+  type: LCD character screen
+  color: false
+
+nozzle:
+  number: 1
+  max_temperature: 210
+  diameter: 0.4
+  extruder_type: direct drive
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+
+other:
+  motherboard: 8
+  firmware: marlin
+  bed_leveling: manual
+  runout_sensor: false
+  supported_file_format:
+    - obj
+    - gcode
+  resume_printing: false
+  print_method:
+    - MicroSD
+    - USB
+  double_z: true

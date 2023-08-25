@@ -1,0 +1,57 @@
+---
+printer:
+  name: ET4-X
+  noise: 
+  size: 440x340x480
+  power: 240
+  voltage:
+    - 230
+    - 115
+  weight: 7.2
+  type: cartesian
+  release_year: 2020
+  price: 200
+  closed: false
+  
+print:
+  volume: 220x220x250
+  speed: 150
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: glass
+    max_temperature: 100
+  layer_resolution: 0.1
+
+screen:
+  size: 
+  resolution: 
+  type: LCD 2.8-inch Touch Screen Display
+  color: true
+
+nozzle:
+  number: 1
+  max_temperature: 250
+  diameter: 0.4
+  extruder_type: bowden
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - ABS
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: free
+  runout_sensor: true
+  supported_file_format:
+    - obj
+    - gcode
+  resume_printing: true
+  print_method:
+    - MicroSD
+    - USB
+  double_z: true
