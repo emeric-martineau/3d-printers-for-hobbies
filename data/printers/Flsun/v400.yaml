@@ -1,0 +1,62 @@
+---
+printer:
+  name: V400
+  noise: 
+  size: 480x435x940
+  power: 450
+  voltage:
+    - 230
+    - 115
+  weight: 16
+  type: delta
+  release_year: 2022
+  price: 850
+  closed: false
+  
+print:
+  volume: 300x410
+  speed: 400
+  precision:
+    x: 0.15
+    y: 0.15
+  bed:
+    surface: flexible magnetic
+    max_temperature: 110
+  layer_resolution: 0.1
+
+screen:
+  size: 176x119
+  resolution: 1024x600
+  type: LCD 7-inch Touch Screen Display
+  color: true
+
+nozzle:
+  number: 1
+  max_temperature: 300
+  diameter: 0.4
+  extruder_type: direct drive
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - ABS
+    - TPU
+    - PETG
+    - WOOD
+    - PC
+    - Nylon
+
+other:
+  motherboard: 32
+  firmware: MKS Robin
+  bed_leveling: auto
+  runout_sensor: yes
+  supported_file_format:
+    - obj
+    - gcode
+  resume_printing: yes
+  print_method:
+    - WiFi
+    - USB
+  double_z: false
