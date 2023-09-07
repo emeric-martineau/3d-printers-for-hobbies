@@ -1,5 +1,0 @@
-Created in 2017, TwoTrees is one of the biggest producer of 3d printer and accessories in China, today comprises R&D, Produce, and Retailing; that creates high-quality products. It is a technology company present in all four major sectors of the 3Dprinter market: 3D Printers, Laser engravers, Spare parts & accessories and filaments.
-
-TwoTrees currently employs over 200 people across the world and reported sales of 10 million dollars in 2021. Over these years, TwoTrees has carefully preserved and enhanced consumer experience by resolutely focusing on the quality of their products and services. Vertical integration across the value chain cultivates this excellence both upstream and downstream, from sourcing of the finest raw materials to production and worldwide retailing. This model guarantees the excellence of our products over time.
-
-We are every bit as uncompromising about our ethics and our underlying social and environmental responsibilities. TwoTrees has always been strongly committed to ethical behavior and insists on integrity in all our activities and relations, whether with employees, partners or other stakeholders.
