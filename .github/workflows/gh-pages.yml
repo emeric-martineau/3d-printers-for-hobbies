@@ -5,10 +5,6 @@ on:
     branches:
     - master
 
-defaults:
-  run:
-    working-directory: 3d-printer-for-hobbies-app
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -21,14 +17,21 @@ jobs:
       with:
         node-version: 18
 
-    - name: Install dependencies
+    - name: Install dependencies for generate data
       run: npm ci
+      working-directory: generate-data
+      
+    - name: Generate data
+      run: npm run generate
+      working-directory: generate-data
 
-    - name: Run tests
-      run: npm run test:headless
+    - name: Install dependencies for web site
+      run: npm ci
+      working-directory: 3d-printer-for-hobbies-app
 
     - name: Build
-      run: npm run build:prod
+      run: npm run build -- --base-href=/3d-printers-for-hobbies/
+      working-directory: 3d-printer-for-hobbies-app
 
     - name: Deploy
       if: success()
