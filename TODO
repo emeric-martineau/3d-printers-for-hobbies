@@ -1,5 +1,5 @@
-8 - Add Compare printer page
-9 - On filter value, remove value if can't be selected (no data found)
-10 - Add page for designer like Fusion 360
-11 - Add page for slicer like cura
-12 - Split printers data and load index in background
+1 - Add Compare printer page
+2 - On filter value, remove value if can't be selected (no data found)
+3 - Split printers data and load index in background
+4 - Add page for designer like Fusion 360
+5 - Add page for slicer like cura
