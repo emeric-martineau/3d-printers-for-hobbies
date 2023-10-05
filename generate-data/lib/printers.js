@@ -30,39 +30,44 @@ function generateSeriesPrintersList(input) {
 // @return [boolean, string[]]
 function generatePrintersList(input, manufacturersList) { 
     log.info(`Generate global printers list form ${input}`)
-    let printersList = []
+    let listOfPrinterToReturn = []
   
-    manufacturersList.forEach(manufacturer => {
+    for (const manufacturer of manufacturersList) {
       let currentPath = `${input}${path.sep}${manufacturer}`
 
       let printerList = generateSeriesPrintersList(currentPath)
   
       if (printerList.length == 0) {
+
         let [err, docs] = readAllDoc(currentPath, manufacturer)
-    
+
         if (err) {
+          log.error(`Error occured to generate printer list from folder ${currentPath} without any serie`)
+
           return [true, []]
         }
   
-        printersList = printersList.concat(docs)
+        listOfPrinterToReturn = listOfPrinterToReturn.concat(docs)
       } else {
-        printerList.forEach(serie => {
+        for (const serie of printerList) {
           let currentSeriePath = `${currentPath}${path.sep}${serie}`
     
           let [err, docs] = readAllDoc(currentSeriePath, manufacturer, serie)
     
           if (err) {
+            log.error(`Error occured to generate printer list from folder ${currentPath}`)
+
             return [true, []]
           }
     
-          printersList = printersList.concat(docs)
-        })
+          listOfPrinterToReturn = listOfPrinterToReturn.concat(docs)
+        }
       }
-    })
+    }
   
-    log.info(`Global printers list as ${printersList.length} elements`)
-  
-    return [false, printersList]
+    log.info(`Global printers list as ${listOfPrinterToReturn.length} elements`)
+
+    return [false, listOfPrinterToReturn]
 }
 
 // Read YAML data of file that describe all keys in YAML file of printer

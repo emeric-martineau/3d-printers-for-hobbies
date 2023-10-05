@@ -22,6 +22,8 @@ function parseDocument(input) {
     }
   
     if (doc.errors.length > 0) {
+      log.error(`Error in file ${input}`)
+
       return [doc.errors, doc]
     }
   
@@ -70,11 +72,18 @@ function filenameWithoutExt(filename) {
 function readAllDoc(folder, manufacturer, serie = '') {
     log.info(`Convert all files from ${folder}`)
     let printersList = []
-  
-    generateYamlFilesList(folder).forEach(file => {
+    const yamlFilesList = generateYamlFilesList(folder)
+
+    for (const file of yamlFilesList) {  
       let [err, doc] = parseDocument(`${folder}${path.sep}${file}`)
-  
+
       if (err.length > 0) {
+        if (serie) {
+          log.error(`An error occured when read manufacturer ${manufacturer} on serie ${serie}`)
+        } else {
+          log.error(`An error occured when read manufacturer ${manufacturer}`)
+        }
+
         return [true, []]
       }
   
@@ -88,9 +97,8 @@ function readAllDoc(folder, manufacturer, serie = '') {
         jsonDoc.printer.image = null
       }
   
-      //console.log(JSON.stringify(jsonDoc))
       printersList.push(jsonDoc)
-    })
+    }
   
     log.info(`${printersList.length} read`)
   
