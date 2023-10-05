@@ -1,0 +1,59 @@
+---
+printer:
+  name: Duplicator D12/400 
+  noise: 
+  size: 560x520x540
+  power: 350
+  voltage:
+    - 230
+    - 115
+  weight: 19.4
+  type: cartesian
+  release_year: 2021
+  price: 180
+  closed: false
+  
+print:
+  volume: 400x400x400
+  speed: 150
+  precision:
+    x: 0.1
+    y: 0.1
+  bed:
+    surface: flexible magnetic
+    max_temperature: 90
+  layer_resolution: 0.1
+
+screen:
+  size: 75x51
+  resolution: 320x240
+  type: LCD 3.5-inch Touch Screen Display
+  color: true
+
+nozzle:
+  number: 1
+  max_temperature: 255
+  diameter: 0.4
+  extruder_type: direct drive
+
+filament:
+  diameter: 1.75
+  type:
+    - PLA
+    - ABS
+    - TPU
+
+other:
+  motherboard: 32
+  firmware: marlin
+  bed_leveling: BLTouch
+  runout_sensor: true
+  supported_file_format:
+    - obj
+    - gcode
+  resume_printing: false
+  print_method:
+    - MicroSD
+    - USB
+    - WiFi
+  double_z: true
