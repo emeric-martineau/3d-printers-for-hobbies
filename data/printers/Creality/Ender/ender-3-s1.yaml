@@ -27,7 +27,7 @@ print:
 screen:
   size: 93x87
   resolution: 320x480
-  type: LCD 4.3-inch knob
+  type: LCD 4.3-inch Touch Screen Display
   color: true
 
 nozzle:
